@@ -1,0 +1,12 @@
+.home-container {
+	height: 100%;
+	overflow: hidden;
+
+	.home-outlet {
+		height: inherit;
+	}
+
+	.checkout-container {
+		border-left: 2px solid #c8c8c8;
+	}
+}

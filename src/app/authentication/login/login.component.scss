@@ -1,0 +1,32 @@
+.login-component {
+	padding: 30px 30px 10px 30px;
+	width: 450px;
+
+	.header {
+		text-align: center;
+		display: block;
+	}
+
+	.field {
+		margin: 0 5px -15px 5px;
+	}
+
+	.login-help {
+		cursor: pointer;
+		position: relative;
+		color: rgb(6,69,173);
+		margin: 0 5px;
+		&:focus{
+			outline: none;
+		}
+	}
+
+	.login-button {
+		margin-bottom: 5px;
+	}
+
+	.version-number {
+		margin-top: 0;
+	}
+
+}

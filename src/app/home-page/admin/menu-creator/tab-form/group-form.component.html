@@ -1,0 +1,12 @@
+<form [formGroup]="groupForm" (ngSubmit)="onSubmit()" class="group-form-container">
+	<h2 mat-dialog-title class="text-center">{{locales.groupFormHeader}}</h2>
+	<div fxLayout="column" fxLayoutAlign="center center">
+		<mat-form-field appearance="outline" class="field">
+			<mat-label>{{locales.name}}</mat-label>
+			<input matInput [placeholder]="locales.namePlaceholder" formControlName="name">
+		</mat-form-field>
+		<button [disabled]="!groupForm.valid" type="submit" mat-raised-button color="primary">
+			{{locales.submitButton}}
+		</button>
+	</div>
+</form>

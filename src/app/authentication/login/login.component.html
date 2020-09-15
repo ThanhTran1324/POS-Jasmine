@@ -1,0 +1,41 @@
+<form [formGroup]='loginForm' (ngSubmit)='onSubmit()'>
+	<mat-card class="login-component">
+		<mat-card-header class="header">
+			<mat-card-title>{{ locales.header }}</mat-card-title>
+			<mat-card-subtitle>
+				{{ locales.subHeader }}
+			</mat-card-subtitle>
+		</mat-card-header>
+
+		<mat-card-content>
+			<div fxLayout="row" fxLayoutAlign="center">
+				<mat-form-field appearance="outline" class="field">
+					<mat-label>{{ locales.emailTitle }}</mat-label>
+					<input type='text' id=" email" formControlName='email' matInput
+						placeholder="{{ locales.emailPlaceHolder }}" />
+				</mat-form-field>
+				<mat-form-field appearance="outline" class="field">
+					<mat-label>{{ locales.passwordTitle }}</mat-label>
+					<input type='password' id='password' formControlName='password' matInput
+						placeholder="{{ locales.passwordPlaceHolder }}" />
+				</mat-form-field>
+			</div>
+			<div fxLayout="row" fxLayoutAlign="space-evenly start">
+				<h4 routerLink="/signup" fxFlex="50" class="login-help">
+					{{ locales.createNewAccount }}
+				</h4>
+				<h4 routerLink="/password-reset" class="login-help">{{ locales.forgotPassword }}</h4>
+			</div>
+		</mat-card-content>
+
+		<mat-card-actions fxLayout="row" fxLayoutAlign="center" class="login-button">
+			<button [disabled]='!loginForm.valid' type="submit" mat-raised-button color="primary" mat-button>
+				{{ locales.loginButton }}
+			</button>
+		</mat-card-actions>
+
+		<h6 class="version-number" fxLayout="row" fxLayoutAlign="center">
+			{{ locales.version }}
+		</h6>
+	</mat-card>
+</form>

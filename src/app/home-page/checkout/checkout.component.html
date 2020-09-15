@@ -1,0 +1,33 @@
+<div class="checkout-component">
+	<table class="checkout-table">
+		<tr>
+			<td>{{locales.subTotal}}</td>
+			<td class="floatRight">{{subTotal | currency}}</td>
+		</tr>
+		<tr>
+			<td>{{locales.tax}}</td>
+			<td class="floatRight">{{tax | currency}}</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr>
+			</td>
+		</tr>
+		<tr>
+			<td>{{locales.total}}</td>
+			<td class="floatRight">{{totalCost | currency}}</td>
+		</tr>
+	</table>
+
+	<div fxLayout="row" fxLayoutAlign="space-evenly center" class="checkout-buttons">
+		<button (click)="cashCheckout()" mat-raised-button>{{locales.cashButton}}</button>
+		<button disabled mat-raised-button>{{locales.discountButton}}</button>
+		<button disabled mat-raised-button>{{locales.creditCardButton}}</button>
+		<button disabled mat-raised-button>{{locales.settingButton}}</button>
+	</div>
+
+	<ng-template #cashCheckoutComponent>
+		<app-cash totalCost={{totalCost}} (submitPayment)="finishPayment()"></app-cash>
+	</ng-template>
+
+</div>

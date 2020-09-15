@@ -1,0 +1,16 @@
+.page-not-found {
+	height: 100%;
+	overflow: hidden;
+
+	.page-not-found-card {
+		padding: 30px;
+		width: 450px;
+		text-align: center;
+
+		.title{
+			font-size: 50px;
+			font-weight: bolder;
+			margin: 10px;
+		}
+	}
+}

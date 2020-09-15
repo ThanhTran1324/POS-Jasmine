@@ -1,0 +1,4 @@
+<div class="user-menu-container" fxLayout="row wrap" fxLayoutAlign="center start">
+	<button [routerLink]="['/home/group', menuGroup.id]" *ngFor="let menuGroup of menuList; trackBy: trackGroupById"
+		mat-raised-button class="menu-button">{{menuGroup.name}}</button>
+</div>

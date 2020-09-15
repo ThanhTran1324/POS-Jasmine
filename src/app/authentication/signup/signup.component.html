@@ -1,0 +1,41 @@
+<form [formGroup]="signupForm" (ngSubmit)='onSubmit()'>
+	<mat-card class="signup-component">
+		<mat-card-header class="header">
+			<mat-card-title>{{ locales.header }}</mat-card-title>
+			<mat-card-subtitle>
+				{{ locales.subHeader }}
+			</mat-card-subtitle>
+		</mat-card-header>
+		<mat-card-content>
+			<div fxLayout="column" fxLayoutAlign="center stretch">
+				<mat-form-field appearance="outline">
+					<mat-label>{{ locales.emailTitle }}</mat-label>
+					<input type='text' id="email" formControlName='email' matInput
+						placeholder="{{ locales.emailPlaceHolder }}" />
+					<mat-error>{{locales.emailError}}</mat-error>
+				</mat-form-field>
+				<div fxLayout="column">
+					<mat-form-field appearance="outline">
+						<mat-label>{{ locales.passwordTitle }}</mat-label>
+						<input type='password' id='password' formControlName='password' matInput
+							placeholder="{{ locales.passwordPlaceHolder }}" />
+						<mat-error>{{locales.passwordError}}</mat-error>
+					</mat-form-field>
+					<mat-form-field appearance="outline">
+						<mat-label>{{ locales.passwordConfirmTitle }}</mat-label>
+						<input type='password' id='passwordConfirm' formControlName='passwordConfirm' matInput
+							placeholder="{{ locales.passwordConfirmPlaceHolder }}" />
+						<mat-error>{{locales.passwordConfirmError}}</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+		</mat-card-content>
+
+		<mat-card-actions fxLayout="row" fxLayoutAlign="center" class="signup-button">
+			<button routerLink="/login" type="button" mat-raised-button mat-button>{{ locales.backButton }}</button>
+			<button [disabled]='!signupForm.valid' type="submit" color="primary" mat-raised-button mat-button>
+				{{ locales.signupButton }}
+			</button>
+		</mat-card-actions>
+	</mat-card>
+</form>

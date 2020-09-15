@@ -1,0 +1,14 @@
+$dark: #383a41;
+
+.mobile-view-component {
+	max-width: 450px;
+	.support-agent-image{
+		width: 200px;
+		border-radius: 10px;
+	}
+
+	.mobileViewNotice {
+		color: $dark;
+		font-size: 35px;
+	}
+}

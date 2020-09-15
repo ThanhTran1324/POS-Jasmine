@@ -1,0 +1,17 @@
+<div class="app">
+	<div fxHide.lt-md="true" class="main">
+		<div *ngIf="showSpinner$ | async" class="app-spinner" fxLayout="column" fxLayoutAlign="center center">
+			<app-spinner></app-spinner>
+		</div>
+		<div class="notification">
+			<app-notification *ngFor="let data of notifications$ | async; trackBy: trackNotificationById"
+				[notificationData]="data">
+			</app-notification>
+		</div>
+		<router-outlet></router-outlet>
+	</div>
+
+	<div fxHide.gt-sm="true" class="mobile-notice" fxLayout="column" fxLayoutAlign="center center">
+		<app-mobile-view></app-mobile-view>
+	</div>
+</div>

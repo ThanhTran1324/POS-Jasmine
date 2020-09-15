@@ -1,0 +1,26 @@
+<div class="cash-modal">
+	<form *ngIf="!isFormSubmitted" [formGroup]="cashForm" (ngSubmit)="calcChangeAmount()" fxLayout="column"
+		fxLayoutAlign="start center">
+		<h4>{{locales.total}}{{totalCost | currency}}</h4>
+		<mat-form-field appearance="outline">
+			<mat-label>{{locales.amountTenderedTitle}}</mat-label>
+			<input formControlName="tenderedAmount" type="number" matInput
+				placeholder="{{locales.amountTenderedPlaceHolder}}">
+			<mat-error *ngIf="cashForm.get('tenderedAmount').getError('notEnoughMoney')">
+				{{locales.amountTenderedError}}
+			</mat-error>
+		</mat-form-field>
+
+		<mat-card-actions>
+			<button (click)="closeModal()" type="button" mat-raised-button>{{locales.cancelButton}}</button>
+			<button type="submit" color="primary" mat-raised-button>
+				{{locales.calcButton}}
+			</button>
+		</mat-card-actions>
+	</form>
+
+	<div *ngIf="isFormSubmitted" fxLayout="column" fxLayoutAlign="start center">
+		<h2>{{locales.changeAmount}}{{change | currency}}</h2>
+		<button (click)="onSubmitPayment()" color="primary" mat-raised-button>{{locales.submitButton}}</button>
+	</div>
+</div>

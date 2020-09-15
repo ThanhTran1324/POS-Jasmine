@@ -1,0 +1,17 @@
+<form [formGroup]="itemForm" (ngSubmit)="onSubmit()" class="item-form-container" class="text-center">
+	<h2 mat-dialog-title>{{locales.itemFormHeader}}</h2>
+	<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+		<mat-form-field fxFlex="80%" appearance="outline" class="field">
+			<mat-label>{{locales.name}}</mat-label>
+			<input matInput [placeholder]="locales.namePlaceholder" formControlName="name">
+		</mat-form-field>
+
+		<mat-form-field fxFlex="20%" appearance="outline" class="field">
+			<mat-label>{{locales.price}}</mat-label>
+			<input matInput [placeholder]="locales.pricePlaceholder" formControlName="price" type="number">
+		</mat-form-field>
+	</div>
+	<button [disabled]="!itemForm.valid" type="submit" mat-raised-button color="primary">
+		{{locales.submitButton}}
+	</button>
+</form>

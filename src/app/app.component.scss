@@ -1,0 +1,25 @@
+$mobile-background-color: rgba(155, 155, 155, 0.3);
+.app {
+	height: 100%;
+	overflow: hidden;
+
+	.main,
+	.app-spinner,
+	.mobile-notice {
+		height: inherit;
+	}
+
+	.notification {
+		position: absolute;
+		bottom: 30px;
+		right: 30px;
+	}
+
+	.app-spinner {
+		z-index: 5;
+	}
+
+	.mobile-notice{
+		background-color: $mobile-background-color;
+	}
+}

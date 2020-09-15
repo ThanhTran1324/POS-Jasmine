@@ -1,0 +1,13 @@
+<div class="page-not-found" fxLayout="column" fxLayoutAlign='center center' [style.background]="backgroundUrl">
+	<mat-card class="page-not-found-card">
+		<p class="title">{{locales.title}}</p>
+		<h4>{{locales.subTitle}}</h4>
+		<hr>
+		<p>{{locales.desc}}</p>
+		<mat-card-actions>
+			<a routerLink='/' mat-raised-button color="primary" mat-button>
+				{{locales.backButton}}
+			</a>
+		</mat-card-actions>
+	</mat-card>
+</div>

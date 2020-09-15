@@ -1,0 +1,7 @@
+<div
+	[@simpleFadeAnimation]="'in'"
+	class="notification-component"
+	[ngClass]="{ error: notificationData.type === 'Error' }"
+>
+	<p>{{ notificationData.message }}</p>
+</div>

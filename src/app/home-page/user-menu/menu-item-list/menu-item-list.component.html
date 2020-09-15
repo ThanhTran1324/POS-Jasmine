@@ -1,0 +1,10 @@
+<div fxLayout="column" class="menu-item-list" *ngIf="menuGroup">
+	<button mat-raised-button [routerLink]="['/home']" class="back-button">
+		<mat-icon>arrow_back</mat-icon>
+	</button>
+	<h2 class="text-center">{{menuGroup.name}}</h2>
+	<div fxLayout="row wrap" fxLayoutAlign="center start">
+		<button (click)="addItemToCart(item)" *ngFor="let item of menuGroup.items; trackBy: trackItemByIndex"
+			mat-raised-button class="menu-button">{{item.name}}</button>
+	</div>
+</div>
