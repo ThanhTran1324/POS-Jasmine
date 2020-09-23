@@ -41,7 +41,7 @@ export class PageNotFound404Component implements OnInit {
 	}
 
 	redirectToHome() {
-		this.timeInterval = setInterval(() => {
+		this.timeInterval = window.setInterval(() => {
 			this.redirectTime--;
 			this.locales.desc = this.getLocale('pageNotFound', 'description').replace('@@value', this.redirectTime);
 			if (this.redirectTime === 0) {

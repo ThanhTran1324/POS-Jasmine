@@ -26,7 +26,7 @@ export class HomePageComponent implements OnInit {
 	@HostListener('document:wheel')
 	resetTimer() {
 		clearTimeout(this.idleTime);
-		this.idleTime = setTimeout(() => {
+		this.idleTime = window.setTimeout(() => {
 			this.authService.logout('timeoutLogout');
 		}, 600000);
 	}

@@ -42,7 +42,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
 	}
 
 	getCurrentDate() {
-		this.clockInterval = setInterval(() => {
+		this.clockInterval = window.setInterval(() => {
 			this.time = new Date(); // set time variable with current date
 		}, 1000); // set it every one seconds}
 	}
