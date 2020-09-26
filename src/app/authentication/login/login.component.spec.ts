@@ -1,25 +1,102 @@
+import { DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { LocalesService } from 'src/app/services/locales.service';
+import { AuthModule } from '../authentication.module';
+import { AuthService } from '../authentication.service';
 import { LoginComponent } from './login.component';
+import { click } from '../../../test-ult/test-utils';
 
 describe('LoginComponent', () => {
 	let component: LoginComponent;
 	let fixture: ComponentFixture<LoginComponent>;
+	let el: DebugElement;
+	let localesService: any;
+	let authService: any;
+	let loginForm: FormGroup;
+	let submitButton: DebugElement;
 
 	beforeEach(async(() => {
+		const localesServiceSpy = jasmine.createSpyObj('LocalesService', ['getLocale']);
+		const authServiceSpy = jasmine.createSpyObj('AuthService', ['login']);
 		TestBed.configureTestingModule({
-			declarations: [LoginComponent]
-		})
-			.compileComponents();
+			imports: [
+				AuthModule,
+				AppRoutingModule,
+				NoopAnimationsModule
+			],
+			providers: [
+				{ provide: LocalesService, useValue: localesServiceSpy },
+				{ provide: AuthService, useValue: authServiceSpy }
+			]
+		}).compileComponents().then(() => {
+			fixture = TestBed.createComponent(LoginComponent);
+			component = fixture.componentInstance;
+			component.ngOnInit();
+			fixture.detectChanges();
+
+			localesService = TestBed.inject(LocalesService);
+			authService = TestBed.inject(AuthService);
+			el = fixture.debugElement;
+			loginForm = component.loginForm;
+			submitButton = el.query(By.css('button[type=submit]'));
+		});
 	}));
 
-	beforeEach(() => {
-		fixture = TestBed.createComponent(LoginComponent);
-		component = fixture.componentInstance;
-		fixture.detectChanges();
+	it('should create Login Component', () => {
+		expect(component).toBeTruthy();
 	});
 
-	it('should create', () => {
-		expect(component).toBeTruthy();
+	it('should create the login form', () => {
+		const email = el.query(By.css('input[id=email]'));
+		const password = el.query(By.css('input[id=password]'));
+		expect(email).toBeTruthy('Expect email field created.');
+		expect(password).toBeTruthy('Expect Password field created.');
+	});
+
+	it('should validate input value', () => {
+		const email = loginForm.controls.email;
+		const password = loginForm.controls.password;
+
+		email.setValue('Error Email');
+		expect(email.valid).toBe(false);
+		email.setValue(null);
+		expect(email.valid).toBe(false);
+		email.setValue('thanhtran1324@gmail.com');
+		expect(email).toBeTruthy();
+
+		password.setValue(null);
+		expect(password.valid).toBeFalsy();
+		password.setValue('123456');
+		expect(password.valid).toBeTruthy();
+	});
+
+	it('should disable submit button.', () => {
+		expect(submitButton.nativeElement.disabled).toBeTruthy('Submit button is NOT disabled');
+		loginForm.controls.email.setValue('Unvalid email');
+		fixture.detectChanges();
+		expect(submitButton.nativeElement.disabled).toBeTruthy('Submit button is NOT disabled');
+	});
+
+	it('Should enable submit button', () => {
+		loginForm.controls.email.setValue('thanhtran1324@gmail.com');
+		loginForm.controls.password.setValue('123456');
+		fixture.detectChanges();
+		expect(submitButton.nativeElement.disabled).toBeFalsy('Unexpected enable submit button');
+	});
+
+	it('Should submit the form', () => {
+		loginForm.controls.email.setValue('thanhtran1324@gmail.com');
+		loginForm.controls.password.setValue('123456');
+		click(submitButton, component.onSubmit());
+		expect(authService.login).toHaveBeenCalledTimes(1);
+	});
+
+	it('should call localesService', () => {
+		expect(localesService.getLocale).toHaveBeenCalled();
 	});
 });

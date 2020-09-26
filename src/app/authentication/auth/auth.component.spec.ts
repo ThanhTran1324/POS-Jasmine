@@ -27,17 +27,17 @@ describe('AuthComponent', () => {
 		})
 			.compileComponents().then(() => {
 				fixture = TestBed.createComponent(AuthComponent);
-				utilitiesService = TestBed.get(UtilitiesService);
+				utilitiesService = TestBed.inject(UtilitiesService);
 				component = fixture.componentInstance;
 				el = fixture.debugElement;
 			});
 	}));
 
-	fit('should create Auth Component', () => {
+	it('should create Auth Component', () => {
 		expect(component).toBeTruthy();
 	});
 
-	fit('Should get background Image from Ultility Service', fakeAsync(() => {
+	it('Should get background Image from Ultility Service', fakeAsync(() => {
 		utilitiesService.getImageUrl.and.returnValue('LinkImage');
 		fixture.detectChanges();
 		flush();
