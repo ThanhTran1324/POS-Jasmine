@@ -11,10 +11,10 @@ describe('AuthComponent', () => {
 	let component: AuthComponent;
 	let fixture: ComponentFixture<AuthComponent>;
 	let el: DebugElement;
-	let utilitiesService: any;
+	let utilitiesServiceSpy: any;
 
 	beforeEach(async(() => {
-		const utilitiesServiceSpy = jasmine.createSpyObj('UltilitiesService', ['getImageUrl', 'getDefaultImage']);
+		utilitiesServiceSpy = jasmine.createSpyObj('UltilitiesService', ['getImageUrl', 'getDefaultImage']);
 		TestBed.configureTestingModule({
 			imports: [
 				AuthModule,
@@ -27,20 +27,33 @@ describe('AuthComponent', () => {
 		})
 			.compileComponents().then(() => {
 				fixture = TestBed.createComponent(AuthComponent);
-				utilitiesService = TestBed.inject(UtilitiesService);
 				component = fixture.componentInstance;
 				el = fixture.debugElement;
 			});
 	}));
 
-	it('should create Auth Component', () => {
+	it('Should create Auth Component', () => {
 		expect(component).toBeTruthy();
 	});
 
 	it('Should get background Image from Ultility Service', fakeAsync(() => {
-		utilitiesService.getImageUrl.and.returnValue('LinkImage');
+		utilitiesServiceSpy.getImageUrl.and.returnValue(Promise.resolve('LinkImage'));
+		component.ngOnInit();
 		fixture.detectChanges();
 		flush();
+		expect(utilitiesServiceSpy.getImageUrl).toHaveBeenCalled();
 		expect(component.backgroundUrl).toBe('LinkImage');
+	}));
+
+	it('Should Not get background image from Ultility Service', fakeAsync(() => {
+		utilitiesServiceSpy.getImageUrl.and.returnValue(Promise.reject({
+			error: 'error'
+		}));
+		utilitiesServiceSpy.getDefaultImage.and.returnValue('DefaultLinkImage');
+		component.ngOnInit();
+		flush();
+		expect(utilitiesServiceSpy.getImageUrl).toHaveBeenCalled();
+		expect(utilitiesServiceSpy.getDefaultImage).toHaveBeenCalled();
+		expect(component.backgroundUrl).toBe('DefaultLinkImage');
 	}));
 });

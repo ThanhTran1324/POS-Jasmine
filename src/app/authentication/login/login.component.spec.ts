@@ -1,6 +1,6 @@
 import { DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -39,11 +39,11 @@ describe('LoginComponent', () => {
 			component.ngOnInit();
 			fixture.detectChanges();
 
+			el = fixture.debugElement;
+			submitButton = el.query(By.css('button[type=submit]'));
+			loginForm = component.loginForm;
 			localesService = TestBed.inject(LocalesService);
 			authService = TestBed.inject(AuthService);
-			el = fixture.debugElement;
-			loginForm = component.loginForm;
-			submitButton = el.query(By.css('button[type=submit]'));
 		});
 	}));
 
@@ -62,14 +62,13 @@ describe('LoginComponent', () => {
 		const email = loginForm.controls.email;
 		const password = loginForm.controls.password;
 
+		expect(email.valid).toBe(false);
 		email.setValue('Error Email');
 		expect(email.valid).toBe(false);
-		email.setValue(null);
-		expect(email.valid).toBe(false);
+
 		email.setValue('thanhtran1324@gmail.com');
 		expect(email).toBeTruthy();
 
-		password.setValue(null);
 		expect(password.valid).toBeFalsy();
 		password.setValue('123456');
 		expect(password.valid).toBeTruthy();

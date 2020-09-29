@@ -12,14 +12,14 @@ import { AuthService } from './authentication.service';
 import * as fromAuth from './authentication.reducer';
 import * as Actions from './authentication.actions';
 
-describe('Auth Service Testing', () => {
+fdescribe('Auth Service Testing', () => {
 	let authService: AuthService;
-	let spinnerServiceSpy: any;
-	let routerSpy: any;
-	let notificationServiceSpy: any;
-	let localesServiceSpy: any;
-	let loggingServiceSpy: any;
-	let afAuthSpy: any;
+	let spinnerService: any;
+	let router: any;
+	let notificationService: any;
+	let localesService: any;
+	let loggingService: any;
+	let afAuth: any;
 	let store: MockStore;
 
 	const loginData = {
@@ -35,46 +35,52 @@ describe('Auth Service Testing', () => {
 	const initialState: fromAuth.State = { isAuthenticated: false, userEmail: null };
 
 	beforeEach(() => {
-		spinnerServiceSpy = jasmine.createSpyObj('SpinnerService', ['showSpinner', 'hideSpinner']);
-		routerSpy = jasmine.createSpyObj('Router', ['navigate']);
-		notificationServiceSpy = jasmine.createSpyObj('NotificationService', ['showRegularNotification', 'showErrorNotification']);
-		localesServiceSpy = jasmine.createSpyObj('LocalesService', ['getLocale']);
-		loggingServiceSpy = jasmine.createSpyObj('LogginService', ['info']);
-		afAuthSpy = jasmine.createSpyObj('AngularFireAuth', ['signInWithEmailAndPassword', 'createUserWithEmailAndPassword', 'signOut', 'sendPasswordResetEmail']);
+		const spinnerServiceSpy = jasmine.createSpyObj('SpinnerService', ['showSpinner', 'hideSpinner']);
+		const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+		const notificationServiceSpy = jasmine.createSpyObj('NotificationService', ['showRegularNotification', 'showErrorNotification']);
+		const localesServiceSpy = jasmine.createSpyObj('LocalesService', ['getLocale']);
+		const loggingServiceSpy = jasmine.createSpyObj('LogginService', ['info']);
+		const afAuthSpy = jasmine.createSpyObj('AngularFireAuth', ['signInWithEmailAndPassword', 'createUserWithEmailAndPassword', 'signOut', 'sendPasswordResetEmail']);
 
 		TestBed.configureTestingModule({
 			imports: [AuthModule],
 			providers: [
 				AuthService,
+				provideMockStore({ initialState }),
 				{ provide: Router, useValue: routerSpy },
 				{ provide: SpinnerService, useValue: spinnerServiceSpy },
 				{ provide: NotificationService, useValue: notificationServiceSpy },
 				{ provide: LocalesService, useValue: localesServiceSpy },
 				{ provide: LoggingService, useValue: loggingServiceSpy },
 				{ provide: AngularFireAuth, useValue: afAuthSpy },
-				provideMockStore({ initialState }),
 			]
 		});
 		store = TestBed.inject(MockStore);
 		authService = TestBed.inject(AuthService);
+		spinnerService = TestBed.inject(SpinnerService);
+		router = TestBed.inject(Router);
+		notificationService = TestBed.inject(NotificationService);
+		localesService = TestBed.inject(LocalesService);
+		loggingService = TestBed.inject(LoggingService);
+		afAuth = TestBed.inject(AngularFireAuth);
 	});
 
-	fit('should login Success', fakeAsync(() => {
-		afAuthSpy.signInWithEmailAndPassword.and.returnValue(Promise.resolve(responseUserData));
+	it('should login Success', fakeAsync(() => {
+		afAuth.signInWithEmailAndPassword.and.returnValue(Promise.resolve(responseUserData));
 		authService.login(loginData);
 		flush();
-		expect(spinnerServiceSpy.showSpinner).toHaveBeenCalled();
-		expect(spinnerServiceSpy.hideSpinner).toHaveBeenCalled();
-		expect(afAuthSpy.signInWithEmailAndPassword).toHaveBeenCalled();
-		expect(notificationServiceSpy.showRegularNotification).toHaveBeenCalled();
+		expect(spinnerService.showSpinner).toHaveBeenCalled();
+		expect(spinnerService.hideSpinner).toHaveBeenCalled();
+		expect(afAuth.signInWithEmailAndPassword).toHaveBeenCalled();
+		expect(notificationService.showRegularNotification).toHaveBeenCalled();
 
 		store.scannedActions$.subscribe((action) => {
 			expect(action.type).toBe(Actions.SET_AUTHENTICATED);
 		});
 	}));
 
-	fit('should loggin Error', fakeAsync(() => {
-		afAuthSpy.signInWithEmailAndPassword.and.returnValue(Promise.reject());
+	it('should loggin Error', fakeAsync(() => {
+		afAuth.signInWithEmailAndPassword.and.returnValue(Promise.reject());
 		authService.login(loginData);
 		flush();
 		store.scannedActions$.subscribe((action) => {
@@ -82,59 +88,59 @@ describe('Auth Service Testing', () => {
 				fail();
 			}
 		});
-		expect(spinnerServiceSpy.showSpinner).toHaveBeenCalled();
-		expect(spinnerServiceSpy.hideSpinner).toHaveBeenCalled();
-		expect(notificationServiceSpy.showErrorNotification).toHaveBeenCalled();
-		expect(loggingServiceSpy.info).toHaveBeenCalled();
+		expect(spinnerService.showSpinner).toHaveBeenCalled();
+		expect(spinnerService.hideSpinner).toHaveBeenCalled();
+		expect(notificationService.showErrorNotification).toHaveBeenCalled();
+		expect(loggingService.info).toHaveBeenCalled();
 	}));
 
-	fit('should create new user successfully', fakeAsync(() => {
-		afAuthSpy.createUserWithEmailAndPassword.and.returnValue(Promise.resolve());
+	it('should create new user successfully', fakeAsync(() => {
+		afAuth.createUserWithEmailAndPassword.and.returnValue(Promise.resolve());
 		authService.registerUser(loginData);
 		flush();
-		expect(spinnerServiceSpy.showSpinner).toHaveBeenCalled();
-		expect(spinnerServiceSpy.hideSpinner).toHaveBeenCalled();
-		expect(loggingServiceSpy.info).toHaveBeenCalled();
-		expect(afAuthSpy.createUserWithEmailAndPassword).toHaveBeenCalled();
-		expect(routerSpy.navigate).toHaveBeenCalled();
-		expect(notificationServiceSpy.showRegularNotification).toHaveBeenCalled();
+		expect(spinnerService.showSpinner).toHaveBeenCalled();
+		expect(spinnerService.hideSpinner).toHaveBeenCalled();
+		expect(loggingService.info).toHaveBeenCalled();
+		expect(afAuth.createUserWithEmailAndPassword).toHaveBeenCalled();
+		expect(router.navigate).toHaveBeenCalled();
+		expect(notificationService.showRegularNotification).toHaveBeenCalled();
 	}));
 
-	fit('should fail to create new user', fakeAsync(() => {
-		afAuthSpy.createUserWithEmailAndPassword.and.returnValue(Promise.reject());
+	it('should fail to create new user', fakeAsync(() => {
+		afAuth.createUserWithEmailAndPassword.and.returnValue(Promise.reject());
 		authService.registerUser(loginData);
 		flush();
-		expect(spinnerServiceSpy.showSpinner).toHaveBeenCalled();
-		expect(spinnerServiceSpy.hideSpinner).toHaveBeenCalled();
-		expect(loggingServiceSpy.info).toHaveBeenCalled();
-		expect(routerSpy.navigate).toHaveBeenCalledTimes(0);
-		expect(notificationServiceSpy.showErrorNotification).toHaveBeenCalled();
+		expect(spinnerService.showSpinner).toHaveBeenCalled();
+		expect(spinnerService.hideSpinner).toHaveBeenCalled();
+		expect(loggingService.info).toHaveBeenCalled();
+		expect(router.navigate).toHaveBeenCalledTimes(0);
+		expect(notificationService.showErrorNotification).toHaveBeenCalled();
 	}));
 
-	fit('should logout', () => {
+	it('should logout', () => {
 		authService.logout();
-		expect(afAuthSpy.signOut).toHaveBeenCalled();
+		expect(afAuth.signOut).toHaveBeenCalled();
 		store.scannedActions$.subscribe(actions => {
 			expect(actions.type).toBe(Actions.SET_UNAUTHENTICATED);
 		});
-		expect(routerSpy.navigate).toHaveBeenCalled();
-		expect(notificationServiceSpy.showRegularNotification).toHaveBeenCalled();
+		expect(router.navigate).toHaveBeenCalled();
+		expect(notificationService.showRegularNotification).toHaveBeenCalled();
 	});
 
-	fit('Should request password reset', fakeAsync(() => {
-		afAuthSpy.sendPasswordResetEmail.and.returnValue(Promise.resolve());
+	it('Should request password reset', fakeAsync(() => {
+		afAuth.sendPasswordResetEmail.and.returnValue(Promise.resolve());
 		authService.passwordReset('test@test.com');
 		flush();
-		expect(afAuthSpy.sendPasswordResetEmail).toHaveBeenCalled();
-		expect(notificationServiceSpy.showRegularNotification).toHaveBeenCalled();
-		expect(routerSpy.navigate).toHaveBeenCalled();
+		expect(afAuth.sendPasswordResetEmail).toHaveBeenCalled();
+		expect(notificationService.showRegularNotification).toHaveBeenCalled();
+		expect(router.navigate).toHaveBeenCalled();
 	}));
 
-	fit('Should fail to sent password reset email', fakeAsync(() => {
-		afAuthSpy.sendPasswordResetEmail.and.returnValue(Promise.reject());
+	it('Should fail to sent password reset email', fakeAsync(() => {
+		afAuth.sendPasswordResetEmail.and.returnValue(Promise.reject());
 		authService.passwordReset('test@test.com');
 		flush();
-		expect(afAuthSpy.sendPasswordResetEmail).toHaveBeenCalled();
-		expect(notificationServiceSpy.showErrorNotification).toHaveBeenCalled();
+		expect(afAuth.sendPasswordResetEmail).toHaveBeenCalled();
+		expect(notificationService.showErrorNotification).toHaveBeenCalled();
 	}));
 });
