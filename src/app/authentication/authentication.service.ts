@@ -10,7 +10,6 @@ import { SpinnerService } from '../shared/spinner/spinner.service';
 import { LocalesService } from '../services/locales.service';
 import { NotificationService } from '../shared/notification/notification.service';
 import { LoggingService } from '../services/logging.service';
-
 import { AuthData, ResponseUserData } from '../model/auth-model';
 
 @Injectable({ providedIn: 'root' })
@@ -33,7 +32,7 @@ export class AuthService {
 			.then((result: ResponseUserData) => {
 				// This logging should be changed - however, leaving it here for current development work
 				this.loggingService.info('<<<< Response <<<< ', result);
-				this.store.dispatch(new AuthActions.SetAuthenticated({ userEmail: result.user.email }));
+				this.store.dispatch(AuthActions.SetAuthenticated({ userEmail: result.user.email }));
 				this.router.navigate(['/home']);
 				this.notificationService.showRegularNotification(this.getLocale('authentication', 'loginSuccess'));
 			})
@@ -65,7 +64,7 @@ export class AuthService {
 	logout(logoutSection: string = 'logoutSuccess') {
 		localStorage.removeItem('userToken');
 		this.afAuth.signOut();
-		this.store.dispatch(new AuthActions.SetUnauthenticated());
+		this.store.dispatch(AuthActions.SetUnauthenticated());
 		this.router.navigate(['/']);
 		this.notificationService.showRegularNotification(this.getLocale('authentication', logoutSection));
 	}
