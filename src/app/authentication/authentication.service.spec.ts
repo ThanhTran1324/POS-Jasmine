@@ -12,7 +12,7 @@ import { AuthService } from './authentication.service';
 import * as fromAuth from './authentication.reducer';
 import * as Actions from './authentication.actions';
 
-fdescribe('Auth Service Testing', () => {
+describe('Auth Service Testing', () => {
 	let authService: AuthService;
 	let spinnerService: any;
 	let router: any;
@@ -75,7 +75,7 @@ fdescribe('Auth Service Testing', () => {
 		expect(notificationService.showRegularNotification).toHaveBeenCalled();
 
 		store.scannedActions$.subscribe((action) => {
-			expect(action.type).toBe(Actions.SET_AUTHENTICATED);
+			expect(action.type).toBe(Actions.SetAuthenticated.type);
 		});
 	}));
 
@@ -84,7 +84,7 @@ fdescribe('Auth Service Testing', () => {
 		authService.login(loginData);
 		flush();
 		store.scannedActions$.subscribe((action) => {
-			if (action.type === Actions.SET_AUTHENTICATED) {
+			if (action.type === Actions.SetAuthenticated.type) {
 				fail();
 			}
 		});
@@ -121,7 +121,7 @@ fdescribe('Auth Service Testing', () => {
 		authService.logout();
 		expect(afAuth.signOut).toHaveBeenCalled();
 		store.scannedActions$.subscribe(actions => {
-			expect(actions.type).toBe(Actions.SET_UNAUTHENTICATED);
+			expect(actions.type).toBe(Actions.SetUnauthenticated.type);
 		});
 		expect(router.navigate).toHaveBeenCalled();
 		expect(notificationService.showRegularNotification).toHaveBeenCalled();
