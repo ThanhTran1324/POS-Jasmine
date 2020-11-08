@@ -12,14 +12,4 @@ export const environment = {
 		appId: '1:56735268539:web:e0980ee982c618a585b39e',
 		measurementId: 'G-BRFH340524'
 	}
-	// firebase: {
-	// 	apiKey: 'AIzaSyBT1a45gappk9yNTzbqVCcaxjKHyyLftQ4',
-	// 	authDomain: 'point-of-sale-5e574.firebaseapp.com',
-	// 	databaseURL: 'https://point-of-sale-5e574.firebaseio.com',
-	// 	projectId: 'point-of-sale-5e574',
-	// 	storageBucket: 'point-of-sale-5e574.appspot.com',
-	// 	messagingSenderId: '951585599142',
-	// 	appId: '1:951585599142:web:095f365f27ec53f15bce67',
-	// 	measurementId: 'G-9N5VFSGYNW'
-	// }
 };
