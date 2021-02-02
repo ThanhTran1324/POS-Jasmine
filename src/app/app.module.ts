@@ -28,9 +28,7 @@ import { ResponseLoggingInterceptor } from '../app/interceptor/response-logging.
 import { reducers } from './app.reducer';
 
 @NgModule({
-	declarations: [
-		AppComponent
-	],
+	declarations: [AppComponent],
 	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,
@@ -48,15 +46,23 @@ import { reducers } from './app.reducer';
 		StoreDevtoolsModule.instrument({
 			maxAge: 25,
 			logOnly: environment.production,
-		})
+		}),
 	],
 	providers: [
 		LocalesService,
 		LoggingService,
 		UtilitiesService,
-		{ provide: HTTP_INTERCEPTORS, useClass: RequestLoggingInterceptor, multi: true },
-		{ provide: HTTP_INTERCEPTORS, useClass: ResponseLoggingInterceptor, multi: true }
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: RequestLoggingInterceptor,
+			multi: true,
+		},
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: ResponseLoggingInterceptor,
+			multi: true,
+		},
 	],
-	bootstrap: [AppComponent]
+	bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

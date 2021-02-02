@@ -11,20 +11,20 @@ import { MenuResolver } from './menu.resolver';
 export const routes: Routes = [
 	{
 		path: '',
-		canActivate: [AuthGuard],
-		canLoad: [AuthGuard],
+		// canActivate: [AuthGuard],
+		// canLoad: [AuthGuard],
 		component: HomePageComponent,
 		resolve: { menuResolver: MenuResolver },
 		children: [
 			{ path: '', pathMatch: 'full', component: UserMenuComponent },
 			{ path: 'group/:id', component: MenuItemListComponent },
-			{ path: 'admin', component: AdminComponent } // need to add auth admin guard.
-		]
-	}
+			{ path: 'admin', component: AdminComponent }, // need to add auth admin guard.
+		],
+	},
 ];
 
 @NgModule({
 	imports: [RouterModule.forChild(routes)],
-	exports: [RouterModule]
+	exports: [RouterModule],
 })
-export class HomeRoutingModule { }
+export class HomeRoutingModule {}

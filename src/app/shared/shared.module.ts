@@ -17,7 +17,6 @@ import { NotificationComponent } from './notification/notification.component';
 import { PageNotFound404Component } from './page-not-found404/page-not-found404.component';
 import { ModalComponent } from './modal/modal.component';
 
-
 @NgModule({
 	declarations: [
 		SpinnerComponent,
@@ -26,8 +25,25 @@ import { ModalComponent } from './modal/modal.component';
 		PageNotFound404Component,
 		ModalComponent,
 	],
-	imports: [AngularMaterialModule, HttpClientModule, CommonModule, FlexLayoutModule],
-	providers: [SpinnerService, AuthService, NotificationService, MenuService, ModalService, SelectedItemsService],
-	exports: [SpinnerComponent, MobileViewComponent, NotificationComponent, PageNotFound404Component]
+	imports: [
+		AngularMaterialModule,
+		HttpClientModule,
+		CommonModule,
+		FlexLayoutModule,
+	],
+	providers: [
+		SpinnerService,
+		AuthService,
+		NotificationService,
+		MenuService,
+		ModalService,
+		SelectedItemsService,
+	],
+	exports: [
+		SpinnerComponent,
+		MobileViewComponent,
+		NotificationComponent,
+		PageNotFound404Component,
+	],
 })
-export class SharedModule { }
+export class SharedModule {}

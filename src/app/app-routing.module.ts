@@ -7,20 +7,23 @@ import { PageNotFound404Component } from './shared/page-not-found404/page-not-fo
 
 const routes: Routes = [
 	{
-		path: '', loadChildren: () => AuthModule
+		path: '',
+		loadChildren: () => AuthModule,
 	},
 	{
 		path: 'home',
-		loadChildren: () => import('./home-page/home-page.module').then(m => m.HomeModule),
+		loadChildren: () =>
+			import('./home-page/home-page.module').then((m) => m.HomeModule),
 	},
 	{
-		path: '**', component: PageNotFound404Component
-	}
+		path: '**',
+		component: PageNotFound404Component,
+	},
 ];
 
 @NgModule({
 	imports: [RouterModule.forRoot(routes)],
 	exports: [RouterModule],
-	providers: [AuthGuard]
+	providers: [AuthGuard],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

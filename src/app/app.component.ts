@@ -8,17 +8,18 @@ import { NotificationData } from './shared/notification/notification.reducer';
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.scss']
+	styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements AfterViewChecked {
-
 	constructor(
 		private store: Store,
 		private changeDetector: ChangeDetectorRef
-	) { }
+	) {}
 
 	showSpinner$: Observable<boolean> = this.store.select(fromRoot.showSpinner);
-	notifications$: Observable<NotificationData[]> = this.store.select(fromRoot.showNotification);
+	notifications$: Observable<NotificationData[]> = this.store.select(
+		fromRoot.showNotification
+	);
 
 	ngAfterViewChecked() {
 		this.changeDetector.detectChanges();
