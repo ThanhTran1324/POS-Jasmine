@@ -6,9 +6,7 @@ import * as SpinnerActions from './spinner.actions';
 
 @Injectable()
 export class SpinnerService {
-	constructor(
-		private store: Store<fromRoot.State>
-	) { }
+	constructor(private store: Store<fromRoot.State>) {}
 
 	showSpinner() {
 		this.store.dispatch(new SpinnerActions.ShowSpinner());

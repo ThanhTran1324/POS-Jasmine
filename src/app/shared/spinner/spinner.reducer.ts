@@ -5,18 +5,18 @@ export interface State {
 }
 
 const initialState: State = {
-	showSpinner: false
+	showSpinner: false,
 };
 
 export function spinnerReducer(state = initialState, action: SpinnerActions) {
 	switch (action.type) {
 		case SHOW_SPINNER:
 			return {
-				showSpinner: true
+				showSpinner: true,
 			};
 		case HIDE_SPINNER:
 			return {
-				showSpinner: false
+				showSpinner: false,
 			};
 		default: {
 			return state;

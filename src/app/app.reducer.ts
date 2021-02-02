@@ -1,4 +1,8 @@
-import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
+import {
+	ActionReducerMap,
+	createFeatureSelector,
+	createSelector,
+} from '@ngrx/store';
 
 import * as fromSpinner from './shared/spinner/spinner.reducer';
 import * as fromNotification from './shared/notification/notification.reducer';
@@ -22,11 +26,21 @@ export const reducers: ActionReducerMap<State> = {
 	selectedItems: fromSelectedItems.SelectedItemsReducer,
 };
 
-export const getSpinnerState = createFeatureSelector<fromSpinner.State>('spinner');
-export const showSpinner = createSelector(getSpinnerState, fromSpinner.showSpinner);
+export const getSpinnerState = createFeatureSelector<fromSpinner.State>(
+	'spinner'
+);
+export const showSpinner = createSelector(
+	getSpinnerState,
+	fromSpinner.showSpinner
+);
 
 export const getAuthState = createFeatureSelector<fromAuth.State>('auth');
 export const getIsAuth = createSelector(getAuthState, fromAuth.getIsAuth);
 
-export const getNotificationState = createFeatureSelector<fromNotification.NotificationData[]>('notification');
-export const showNotification = createSelector(getNotificationState, fromNotification.showNotification);
+export const getNotificationState = createFeatureSelector<
+	fromNotification.NotificationData[]
+>('notification');
+export const showNotification = createSelector(
+	getNotificationState,
+	fromNotification.showNotification
+);

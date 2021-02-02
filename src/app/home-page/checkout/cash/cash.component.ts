@@ -7,13 +7,13 @@ import { ModalService } from '../../../shared/modal/modal.service';
 @Component({
 	selector: 'app-cash',
 	templateUrl: './cash.component.html',
-	styleUrls: ['./cash.component.scss']
+	styleUrls: ['./cash.component.scss'],
 })
 export class CashComponent implements OnInit {
 	constructor(
 		private localesService: LocalesService,
 		private modalService: ModalService
-	) { }
+	) {}
 
 	@Input() totalCost: number;
 	@Output() submitPayment = new EventEmitter();
@@ -23,9 +23,18 @@ export class CashComponent implements OnInit {
 	getLocale = this.localesService.getLocale;
 	locales = {
 		total: this.getLocale('cashLocales', 'total'),
-		amountTenderedTitle: this.getLocale('cashLocales', 'amountTenderedTitle'),
-		amountTenderedPlaceHolder: this.getLocale('cashLocales', 'amountTenderedPlaceHolder'),
-		amountTenderedError: this.getLocale('cashLocales', 'amountTenderedError'),
+		amountTenderedTitle: this.getLocale(
+			'cashLocales',
+			'amountTenderedTitle'
+		),
+		amountTenderedPlaceHolder: this.getLocale(
+			'cashLocales',
+			'amountTenderedPlaceHolder'
+		),
+		amountTenderedError: this.getLocale(
+			'cashLocales',
+			'amountTenderedError'
+		),
 		cancelButton: this.getLocale('cashLocales', 'cancelButton'),
 		calcButton: this.getLocale('cashLocales', 'calcButton'),
 		changeAmount: this.getLocale('cashLocales', 'changeAmount'),
@@ -48,9 +57,12 @@ export class CashComponent implements OnInit {
 
 	calcChangeAmount() {
 		if (this.cashForm.get('tenderedAmount').value < this.totalCost) {
-			this.cashForm.get('tenderedAmount').setErrors({ notEnoughMoney: true });
+			this.cashForm
+				.get('tenderedAmount')
+				.setErrors({ notEnoughMoney: true });
 		} else {
-			this.change = this.cashForm.get('tenderedAmount').value - this.totalCost;
+			this.change =
+				this.cashForm.get('tenderedAmount').value - this.totalCost;
 			this.isFormSubmitted = true;
 		}
 	}

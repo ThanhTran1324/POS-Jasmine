@@ -10,11 +10,10 @@ import { AuthService } from '../authentication.service';
 	styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-
 	constructor(
 		private localesService: LocalesService,
 		private authService: AuthService
-	) { }
+	) {}
 
 	loginForm: FormGroup;
 	getLocale = this.localesService.getLocale;
@@ -24,7 +23,10 @@ export class LoginComponent implements OnInit {
 		emailTitle: this.getLocale('loginLocales', 'emailTitle'),
 		emailPlaceHolder: this.getLocale('loginLocales', 'emailPlaceHolder'),
 		passwordTitle: this.getLocale('loginLocales', 'passwordTitle'),
-		passwordPlaceHolder: this.getLocale('loginLocales', 'passwordPlaceHolder'),
+		passwordPlaceHolder: this.getLocale(
+			'loginLocales',
+			'passwordPlaceHolder'
+		),
 		createNewAccount: this.getLocale('loginLocales', 'createNewAccount'),
 		forgotPassword: this.getLocale('loginLocales', 'forgotPassword'),
 		loginButton: this.getLocale('loginLocales', 'loginButton'),
@@ -37,8 +39,14 @@ export class LoginComponent implements OnInit {
 
 	initForm() {
 		this.loginForm = new FormGroup({
-			email: new FormControl(null, [Validators.required, Validators.email]),
-			password: new FormControl(null, [Validators.required, Validators.minLength(6)])
+			email: new FormControl(null, [
+				Validators.required,
+				Validators.email,
+			]),
+			password: new FormControl(null, [
+				Validators.required,
+				Validators.minLength(6),
+			]),
 		});
 	}
 

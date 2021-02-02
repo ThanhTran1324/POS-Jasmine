@@ -4,7 +4,7 @@ import { MenuService } from './menu.service';
 
 @Injectable()
 export class MenuResolver implements Resolve<any> {
-	constructor(private menuService: MenuService) { }
+	constructor(private menuService: MenuService) {}
 
 	alreadyFetched = false;
 

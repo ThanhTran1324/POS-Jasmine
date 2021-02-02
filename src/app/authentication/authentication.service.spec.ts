@@ -24,23 +24,41 @@ describe('Auth Service Testing', () => {
 
 	const loginData = {
 		email: 'test@test.com',
-		password: '111111'
+		password: '111111',
 	};
 	const responseUserData = {
 		user: {
 			refreshToken: 'tokenString',
-			email: 'test@test.com'
-		}
+			email: 'test@test.com',
+		},
 	};
-	const initialState: fromAuth.State = { isAuthenticated: false, userEmail: null };
+	const initialState: fromAuth.State = {
+		isAuthenticated: false,
+		userEmail: null,
+	};
 
 	beforeEach(() => {
-		const spinnerServiceSpy = jasmine.createSpyObj('SpinnerService', ['showSpinner', 'hideSpinner']);
+		const spinnerServiceSpy = jasmine.createSpyObj('SpinnerService', [
+			'showSpinner',
+			'hideSpinner',
+		]);
 		const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
-		const notificationServiceSpy = jasmine.createSpyObj('NotificationService', ['showRegularNotification', 'showErrorNotification']);
-		const localesServiceSpy = jasmine.createSpyObj('LocalesService', ['getLocale']);
-		const loggingServiceSpy = jasmine.createSpyObj('LogginService', ['info']);
-		const afAuthSpy = jasmine.createSpyObj('AngularFireAuth', ['signInWithEmailAndPassword', 'createUserWithEmailAndPassword', 'signOut', 'sendPasswordResetEmail']);
+		const notificationServiceSpy = jasmine.createSpyObj(
+			'NotificationService',
+			['showRegularNotification', 'showErrorNotification']
+		);
+		const localesServiceSpy = jasmine.createSpyObj('LocalesService', [
+			'getLocale',
+		]);
+		const loggingServiceSpy = jasmine.createSpyObj('LogginService', [
+			'info',
+		]);
+		const afAuthSpy = jasmine.createSpyObj('AngularFireAuth', [
+			'signInWithEmailAndPassword',
+			'createUserWithEmailAndPassword',
+			'signOut',
+			'sendPasswordResetEmail',
+		]);
 
 		TestBed.configureTestingModule({
 			imports: [AuthModule],
@@ -49,11 +67,14 @@ describe('Auth Service Testing', () => {
 				provideMockStore({ initialState }),
 				{ provide: Router, useValue: routerSpy },
 				{ provide: SpinnerService, useValue: spinnerServiceSpy },
-				{ provide: NotificationService, useValue: notificationServiceSpy },
+				{
+					provide: NotificationService,
+					useValue: notificationServiceSpy,
+				},
 				{ provide: LocalesService, useValue: localesServiceSpy },
 				{ provide: LoggingService, useValue: loggingServiceSpy },
 				{ provide: AngularFireAuth, useValue: afAuthSpy },
-			]
+			],
 		});
 		store = TestBed.inject(MockStore);
 		authService = TestBed.inject(AuthService);
@@ -66,7 +87,9 @@ describe('Auth Service Testing', () => {
 	});
 
 	it('should login Success', fakeAsync(() => {
-		afAuth.signInWithEmailAndPassword.and.returnValue(Promise.resolve(responseUserData));
+		afAuth.signInWithEmailAndPassword.and.returnValue(
+			Promise.resolve(responseUserData)
+		);
 		authService.login(loginData);
 		flush();
 		expect(spinnerService.showSpinner).toHaveBeenCalled();
@@ -95,7 +118,9 @@ describe('Auth Service Testing', () => {
 	}));
 
 	it('should create new user successfully', fakeAsync(() => {
-		afAuth.createUserWithEmailAndPassword.and.returnValue(Promise.resolve());
+		afAuth.createUserWithEmailAndPassword.and.returnValue(
+			Promise.resolve()
+		);
 		authService.registerUser(loginData);
 		flush();
 		expect(spinnerService.showSpinner).toHaveBeenCalled();
@@ -120,7 +145,7 @@ describe('Auth Service Testing', () => {
 	it('should logout', () => {
 		authService.logout();
 		expect(afAuth.signOut).toHaveBeenCalled();
-		store.scannedActions$.subscribe(actions => {
+		store.scannedActions$.subscribe((actions) => {
 			expect(actions.type).toBe(Actions.SetUnauthenticated.type);
 		});
 		expect(router.navigate).toHaveBeenCalled();

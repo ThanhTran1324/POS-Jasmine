@@ -3,13 +3,13 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 export class LoggingService {
-	constructor() { }
+	constructor() {}
 	private isDebugMode: boolean = this.checkDebugMode();
 
 	getUrlParams(search: string) {
 		const hashes = search.slice(search.indexOf('?') + 1).split('&');
 		const params = {};
-		hashes.map(hash => {
+		hashes.map((hash) => {
 			const [key, val] = hash.split('=');
 			params[key] = decodeURIComponent(val);
 		});

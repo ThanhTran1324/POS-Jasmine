@@ -10,10 +10,13 @@ import { LocalesService } from '../../services/locales.service';
 @Component({
 	selector: 'app-cart',
 	templateUrl: './cart.component.html',
-	styleUrls: ['./cart.component.scss']
+	styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit, OnDestroy {
-	constructor(private store: Store<fromRoot.State>, private localesService: LocalesService) { }
+	constructor(
+		private store: Store<fromRoot.State>,
+		private localesService: LocalesService
+	) {}
 
 	selectedItemsSub: Subscription;
 	selectedItems: SelectedItem[];
@@ -26,13 +29,12 @@ export class CartComponent implements OnInit, OnDestroy {
 	};
 
 	ngOnInit(): void {
-		this.selectedItemsSub = this.store.select('selectedItems')
-			.subscribe(
-				selectedItemsState => {
-					this.selectedItems = selectedItemsState.selectedItems;
-					this.totalCost = selectedItemsState.totalCost;
-				}
-			);
+		this.selectedItemsSub = this.store
+			.select('selectedItems')
+			.subscribe((selectedItemsState) => {
+				this.selectedItems = selectedItemsState.selectedItems;
+				this.totalCost = selectedItemsState.totalCost;
+			});
 	}
 
 	ngOnDestroy() {

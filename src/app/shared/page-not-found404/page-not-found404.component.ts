@@ -7,15 +7,14 @@ import { UtilitiesService } from 'src/app/services/utilities.service';
 @Component({
 	selector: 'app-page-not-found404',
 	templateUrl: './page-not-found404.component.html',
-	styleUrls: ['./page-not-found404.component.scss']
+	styleUrls: ['./page-not-found404.component.scss'],
 })
-
 export class PageNotFound404Component implements OnInit {
 	constructor(
 		private router: Router,
 		private localesService: LocalesService,
-		private utilitiesService: UtilitiesService,
-	) { }
+		private utilitiesService: UtilitiesService
+	) {}
 
 	getLocale = this.localesService.getLocale;
 
@@ -25,7 +24,10 @@ export class PageNotFound404Component implements OnInit {
 	locales = {
 		title: this.getLocale('pageNotFound', 'title'),
 		subTitle: this.getLocale('pageNotFound', 'subTitle'),
-		desc: this.getLocale('pageNotFound', 'description').replace('@@value', this.redirectTime),
+		desc: this.getLocale('pageNotFound', 'description').replace(
+			'@@value',
+			this.redirectTime
+		),
 		backButton: this.getLocale('pageNotFound', 'backButton'),
 	};
 
@@ -33,8 +35,7 @@ export class PageNotFound404Component implements OnInit {
 		try {
 			const imageUrl = await this.utilitiesService.getImageUrl();
 			this.backgroundUrl = imageUrl;
-		}
-		catch {
+		} catch {
 			this.backgroundUrl = this.utilitiesService.getDefaultImage();
 		}
 		this.redirectToHome();
@@ -43,7 +44,10 @@ export class PageNotFound404Component implements OnInit {
 	redirectToHome() {
 		this.timeInterval = window.setInterval(() => {
 			this.redirectTime--;
-			this.locales.desc = this.getLocale('pageNotFound', 'description').replace('@@value', this.redirectTime);
+			this.locales.desc = this.getLocale(
+				'pageNotFound',
+				'description'
+			).replace('@@value', this.redirectTime);
 			if (this.redirectTime === 0) {
 				clearInterval(this.timeInterval);
 				this.router.navigate(['/']);

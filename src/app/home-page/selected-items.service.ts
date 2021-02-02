@@ -5,7 +5,7 @@ import { State } from './selected-items.reducer';
 
 @Injectable()
 export class SelectedItemsService {
-	constructor(private db: AngularFirestore) { }
+	constructor(private db: AngularFirestore) {}
 
 	orderCollection = this.db.collection('orders');
 

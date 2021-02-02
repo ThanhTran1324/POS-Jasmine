@@ -8,21 +8,28 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 @Component({
 	selector: 'app-group-form',
 	templateUrl: './group-form.component.html',
-	styleUrls: ['./group-form.component.scss']
+	styleUrls: ['./group-form.component.scss'],
 })
 export class GroupFormComponent implements OnInit {
 	constructor(
 		@Inject(MAT_DIALOG_DATA) public data: MenuGroup,
 		private dialogRef: MatDialogRef<GroupFormComponent>,
-		private localesService: LocalesService) { }
+		private localesService: LocalesService
+	) {}
 
 	groupForm: FormGroup;
 	getLocale = this.localesService.getLocale;
 	locales = {
 		name: this.getLocale('menuCreatorLocales', 'name'),
-		namePlaceholder: this.getLocale('menuCreatorLocales', 'namePlaceholder'),
+		namePlaceholder: this.getLocale(
+			'menuCreatorLocales',
+			'namePlaceholder'
+		),
 		submitButton: this.getLocale('menuCreatorLocales', 'submitButton'),
-		groupFormHeader: this.getLocale('menuCreatorLocales', 'groupFormHeader'),
+		groupFormHeader: this.getLocale(
+			'menuCreatorLocales',
+			'groupFormHeader'
+		),
 	};
 
 	ngOnInit() {
@@ -32,7 +39,7 @@ export class GroupFormComponent implements OnInit {
 
 	formInit() {
 		this.groupForm = new FormGroup({
-			name: new FormControl(null, [Validators.required])
+			name: new FormControl(null, [Validators.required]),
 		});
 	}
 

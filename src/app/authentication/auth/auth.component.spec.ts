@@ -1,5 +1,11 @@
 import { DebugElement } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
+import {
+	async,
+	ComponentFixture,
+	fakeAsync,
+	flush,
+	TestBed,
+} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from '../../app-routing.module';
 import { UtilitiesService } from 'src/app/services/utilities.service';
@@ -14,18 +20,18 @@ describe('AuthComponent', () => {
 	let utilitiesServiceSpy: any;
 
 	beforeEach(async(() => {
-		utilitiesServiceSpy = jasmine.createSpyObj('UltilitiesService', ['getImageUrl', 'getDefaultImage']);
+		utilitiesServiceSpy = jasmine.createSpyObj('UltilitiesService', [
+			'getImageUrl',
+			'getDefaultImage',
+		]);
 		TestBed.configureTestingModule({
-			imports: [
-				AuthModule,
-				NoopAnimationsModule,
-				AppRoutingModule
-			],
+			imports: [AuthModule, NoopAnimationsModule, AppRoutingModule],
 			providers: [
-				{ provide: UtilitiesService, useValue: utilitiesServiceSpy }
-			]
+				{ provide: UtilitiesService, useValue: utilitiesServiceSpy },
+			],
 		})
-			.compileComponents().then(() => {
+			.compileComponents()
+			.then(() => {
 				fixture = TestBed.createComponent(AuthComponent);
 				component = fixture.componentInstance;
 				el = fixture.debugElement;
@@ -37,7 +43,9 @@ describe('AuthComponent', () => {
 	});
 
 	it('Should get background Image from Ultility Service', fakeAsync(() => {
-		utilitiesServiceSpy.getImageUrl.and.returnValue(Promise.resolve('LinkImage'));
+		utilitiesServiceSpy.getImageUrl.and.returnValue(
+			Promise.resolve('LinkImage')
+		);
 		component.ngOnInit();
 		fixture.detectChanges();
 		flush();
@@ -46,9 +54,11 @@ describe('AuthComponent', () => {
 	}));
 
 	it('Should Not get background image from Ultility Service', fakeAsync(() => {
-		utilitiesServiceSpy.getImageUrl.and.returnValue(Promise.reject({
-			error: 'error'
-		}));
+		utilitiesServiceSpy.getImageUrl.and.returnValue(
+			Promise.reject({
+				error: 'error',
+			})
+		);
 		utilitiesServiceSpy.getDefaultImage.and.returnValue('DefaultLinkImage');
 		component.ngOnInit();
 		flush();

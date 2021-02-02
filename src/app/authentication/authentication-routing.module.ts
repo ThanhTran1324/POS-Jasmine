@@ -14,11 +14,11 @@ const routes: Routes = [
 			{
 				path: '',
 				pathMatch: 'full',
-				redirectTo: 'login'
+				redirectTo: 'login',
 			},
 			{
 				path: 'login',
-				component: LoginComponent
+				component: LoginComponent,
 			},
 			{
 				path: 'signup',
@@ -26,14 +26,14 @@ const routes: Routes = [
 			},
 			{
 				path: 'password-reset',
-				component: PasswordResetComponent
-			}
-		]
-	}
+				component: PasswordResetComponent,
+			},
+		],
+	},
 ];
 
 @NgModule({
 	imports: [RouterModule.forChild(routes)],
-	exports: [RouterModule]
+	exports: [RouterModule],
 })
-export class AuthRoutingModule { }
+export class AuthRoutingModule {}

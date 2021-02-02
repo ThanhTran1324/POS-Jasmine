@@ -11,27 +11,25 @@ import * as SelectedItemsActions from '../../selected-items.actions';
 @Component({
 	selector: 'app-menu-item-list',
 	templateUrl: './menu-item-list.component.html',
-	styleUrls: ['./menu-item-list.component.scss']
+	styleUrls: ['./menu-item-list.component.scss'],
 })
 export class MenuItemListComponent implements OnInit, OnDestroy {
 	constructor(
 		private router: ActivatedRoute,
 		private menuService: MenuService,
 		private store: Store<fromRoot.State>
-	) { }
+	) {}
 
 	menuSub: Subscription;
 	menuGroup: MenuGroup;
 
 	ngOnInit() {
-		this.menuSub = this.menuService.getMenu().subscribe(
-			menuList => {
-				if (menuList) {
-					const id = this.router.snapshot.paramMap.get('id');
-					this.menuGroup = menuList.find(item => item.id === id);
-				}
+		this.menuSub = this.menuService.getMenu().subscribe((menuList) => {
+			if (menuList) {
+				const id = this.router.snapshot.paramMap.get('id');
+				this.menuGroup = menuList.find((item) => item.id === id);
 			}
-		);
+		});
 	}
 
 	ngOnDestroy() {

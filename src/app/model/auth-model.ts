@@ -5,11 +5,11 @@ export interface AuthData {
 
 export interface UnsplashResponseData {
 	urls: {
-		raw: string,
-		regular: string,
-		full: string
-		small: string,
-		thumb: string
+		raw: string;
+		regular: string;
+		full: string;
+		small: string;
+		thumb: string;
 	};
 }
 

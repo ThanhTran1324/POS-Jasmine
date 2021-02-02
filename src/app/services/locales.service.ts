@@ -5,10 +5,11 @@ const locales: object = {
 		localeNotFound: '<<Sorry, this locale is missing>>',
 	},
 	spinnerLocales: {
-		loading: 'Loading...'
+		loading: 'Loading...',
 	},
 	mobileViewLocales: {
-		notice: 'Mobile and Tablet are not supported - Please try again in Desktop mode (960px and up).'
+		notice:
+			'Mobile and Tablet are not supported - Please try again in Desktop mode (960px and up).',
 	},
 	loginLocales: {
 		header: 'Point of Sale System',
@@ -45,7 +46,7 @@ const locales: object = {
 		passwordResetSubmitSuccess: 'Your password reset email has been sent',
 		passwordResetSubmitError: 'Unable to send reset email',
 		logoutSuccess: 'Log out successfully',
-		timeoutLogout: 'User is logged out due to inactivity'
+		timeoutLogout: 'User is logged out due to inactivity',
 	},
 	passwordResetLocales: {
 		header: 'Point of Sale System',
@@ -53,19 +54,19 @@ const locales: object = {
 		emailTitle: 'Email',
 		emailPlaceHolder: 'youremail@mail.com',
 		backButton: 'Back',
-		submitButton: 'Submit'
+		submitButton: 'Submit',
 	},
 	pageNotFound: {
 		title: '404',
 		subTitle: 'PAGE NOT FOUND',
 		description: 'Redirect to login page in @@value seconds',
-		backButton: 'Back'
+		backButton: 'Back',
 	},
 	navBarLocales: {
 		hello: 'Hello ',
 		adminButton: 'Admin',
 		homeButton: 'Home',
-		logoutButton: 'Logout'
+		logoutButton: 'Logout',
 	},
 	menuCreatorLocales: {
 		name: 'Name',
@@ -96,7 +97,7 @@ const locales: object = {
 		cashButton: 'Cash',
 		discountButton: 'Discount',
 		creditCardButton: 'Credit Card',
-		settingButton: 'Setting'
+		settingButton: 'Setting',
 	},
 	cashLocales: {
 		total: 'Total : ',
@@ -108,13 +109,13 @@ const locales: object = {
 		changeAmount: 'Change Amount: ',
 		submitButton: 'Submit Payment',
 		submitSuccess: 'Order Submitted.',
-		submitError: 'ERROR occurred!'
+		submitError: 'ERROR occurred!',
 	},
 };
 
 @Injectable()
 export class LocalesService {
-	constructor() { }
+	constructor() {}
 
 	getLocale(section: string, target: string) {
 		const errorSection = 'errorLocales';

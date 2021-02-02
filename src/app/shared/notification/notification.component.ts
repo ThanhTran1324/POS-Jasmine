@@ -1,5 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import {
+	trigger,
+	state,
+	style,
+	transition,
+	animate,
+} from '@angular/animations';
 import { NotificationData } from './notification.reducer';
 
 @Component({
@@ -9,14 +15,11 @@ import { NotificationData } from './notification.reducer';
 	animations: [
 		trigger('simpleFadeAnimation', [
 			state('void', style({ opacity: 0 })),
-			transition(':enter, :leave', [
-				animate(1000)
-			])
-		])
-	]
+			transition(':enter, :leave', [animate(1000)]),
+		]),
+	],
 })
-
 export class NotificationComponent {
-	constructor() { }
+	constructor() {}
 	@Input() notificationData: NotificationData;
 }

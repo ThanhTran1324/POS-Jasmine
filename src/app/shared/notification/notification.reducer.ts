@@ -1,4 +1,8 @@
-import { NotificationActions, ADD_NOTIFICATION, REMOVE_NOTIFICATION } from './notification.actions';
+import {
+	NotificationActions,
+	ADD_NOTIFICATION,
+	REMOVE_NOTIFICATION,
+} from './notification.actions';
 
 export type NotificationType = 'Error' | 'Info';
 export interface NotificationData {
@@ -9,13 +13,13 @@ export interface NotificationData {
 
 const initialState: NotificationData[] = [];
 
-export function notificationReducer(state = initialState, action: NotificationActions) {
+export function notificationReducer(
+	state = initialState,
+	action: NotificationActions
+) {
 	switch (action.type) {
 		case ADD_NOTIFICATION:
-			return [
-				...state,
-				action.payload
-			];
+			return [...state, action.payload];
 		case REMOVE_NOTIFICATION:
 			state = state.reduce((acc, notification) => {
 				if (notification.id !== action.payload.id) {

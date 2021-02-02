@@ -6,14 +6,13 @@ import { AuthService } from '../authentication.service';
 @Component({
 	selector: 'app-password-reset',
 	templateUrl: './password-reset.component.html',
-	styleUrls: ['./password-reset.component.scss']
+	styleUrls: ['./password-reset.component.scss'],
 })
 export class PasswordResetComponent implements OnInit {
-
 	constructor(
 		private localesService: LocalesService,
 		private authService: AuthService
-	) { }
+	) {}
 
 	passwordResetForm: FormGroup;
 	getLocale = this.localesService.getLocale;
@@ -21,7 +20,10 @@ export class PasswordResetComponent implements OnInit {
 		header: this.getLocale('passwordResetLocales', 'header'),
 		subHeader: this.getLocale('passwordResetLocales', 'subHeader'),
 		emailTitle: this.getLocale('passwordResetLocales', 'emailTitle'),
-		emailPlaceHolder: this.getLocale('passwordResetLocales', 'emailPlaceHolder'),
+		emailPlaceHolder: this.getLocale(
+			'passwordResetLocales',
+			'emailPlaceHolder'
+		),
 		backButton: this.getLocale('passwordResetLocales', 'backButton'),
 		submitButton: this.getLocale('passwordResetLocales', 'submitButton'),
 	};
@@ -32,7 +34,10 @@ export class PasswordResetComponent implements OnInit {
 
 	initForm() {
 		this.passwordResetForm = new FormGroup({
-			email: new FormControl(null, [Validators.required, Validators.email])
+			email: new FormControl(null, [
+				Validators.required,
+				Validators.email,
+			]),
 		});
 	}
 

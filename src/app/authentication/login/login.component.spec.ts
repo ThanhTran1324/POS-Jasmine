@@ -21,30 +21,30 @@ describe('LoginComponent', () => {
 	let submitButton: DebugElement;
 
 	beforeEach(async(() => {
-		const localesServiceSpy = jasmine.createSpyObj('LocalesService', ['getLocale']);
+		const localesServiceSpy = jasmine.createSpyObj('LocalesService', [
+			'getLocale',
+		]);
 		const authServiceSpy = jasmine.createSpyObj('AuthService', ['login']);
 		TestBed.configureTestingModule({
-			imports: [
-				AuthModule,
-				AppRoutingModule,
-				NoopAnimationsModule
-			],
+			imports: [AuthModule, AppRoutingModule, NoopAnimationsModule],
 			providers: [
 				{ provide: LocalesService, useValue: localesServiceSpy },
-				{ provide: AuthService, useValue: authServiceSpy }
-			]
-		}).compileComponents().then(() => {
-			fixture = TestBed.createComponent(LoginComponent);
-			component = fixture.componentInstance;
-			component.ngOnInit();
-			fixture.detectChanges();
+				{ provide: AuthService, useValue: authServiceSpy },
+			],
+		})
+			.compileComponents()
+			.then(() => {
+				fixture = TestBed.createComponent(LoginComponent);
+				component = fixture.componentInstance;
+				component.ngOnInit();
+				fixture.detectChanges();
 
-			el = fixture.debugElement;
-			submitButton = el.query(By.css('button[type=submit]'));
-			loginForm = component.loginForm;
-			localesService = TestBed.inject(LocalesService);
-			authService = TestBed.inject(AuthService);
-		});
+				el = fixture.debugElement;
+				submitButton = el.query(By.css('button[type=submit]'));
+				loginForm = component.loginForm;
+				localesService = TestBed.inject(LocalesService);
+				authService = TestBed.inject(AuthService);
+			});
 	}));
 
 	it('should create Login Component', () => {
@@ -75,17 +75,23 @@ describe('LoginComponent', () => {
 	});
 
 	it('should disable submit button.', () => {
-		expect(submitButton.nativeElement.disabled).toBeTruthy('Submit button is NOT disabled');
+		expect(submitButton.nativeElement.disabled).toBeTruthy(
+			'Submit button is NOT disabled'
+		);
 		loginForm.controls.email.setValue('Unvalid email');
 		fixture.detectChanges();
-		expect(submitButton.nativeElement.disabled).toBeTruthy('Submit button is NOT disabled');
+		expect(submitButton.nativeElement.disabled).toBeTruthy(
+			'Submit button is NOT disabled'
+		);
 	});
 
 	it('Should enable submit button', () => {
 		loginForm.controls.email.setValue('thanhtran1324@gmail.com');
 		loginForm.controls.password.setValue('123456');
 		fixture.detectChanges();
-		expect(submitButton.nativeElement.disabled).toBeFalsy('Unexpected enable submit button');
+		expect(submitButton.nativeElement.disabled).toBeFalsy(
+			'Unexpected enable submit button'
+		);
 	});
 
 	it('Should submit the form', () => {

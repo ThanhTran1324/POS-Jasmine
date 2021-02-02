@@ -5,14 +5,13 @@ import { AuthService } from '../authentication.service';
 @Component({
 	selector: 'app-signup',
 	templateUrl: './signup.component.html',
-	styleUrls: ['./signup.component.scss']
+	styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
-
 	constructor(
 		private localesService: LocalesService,
 		private authService: AuthService
-	) { }
+	) {}
 
 	signupForm: FormGroup;
 	getLocale = this.localesService.getLocale;
@@ -23,11 +22,23 @@ export class SignupComponent implements OnInit {
 		emailPlaceHolder: this.getLocale('signupLocales', 'emailPlaceHolder'),
 		emailError: this.getLocale('signupLocales', 'emailError'),
 		passwordTitle: this.getLocale('signupLocales', 'passwordTitle'),
-		passwordPlaceHolder: this.getLocale('signupLocales', 'passwordPlaceHolder'),
+		passwordPlaceHolder: this.getLocale(
+			'signupLocales',
+			'passwordPlaceHolder'
+		),
 		passwordError: this.getLocale('signupLocales', 'passwordError'),
-		passwordConfirmTitle: this.getLocale('signupLocales', 'passwordConfirmTitle'),
-		passwordConfirmPlaceHolder: this.getLocale('signupLocales', 'passwordConfirmPlaceHolder'),
-		passwordConfirmError: this.getLocale('signupLocales', 'passwordConfirmError'),
+		passwordConfirmTitle: this.getLocale(
+			'signupLocales',
+			'passwordConfirmTitle'
+		),
+		passwordConfirmPlaceHolder: this.getLocale(
+			'signupLocales',
+			'passwordConfirmPlaceHolder'
+		),
+		passwordConfirmError: this.getLocale(
+			'signupLocales',
+			'passwordConfirmError'
+		),
 		backButton: this.getLocale('signupLocales', 'backButton'),
 		signupButton: this.getLocale('signupLocales', 'signupButton'),
 	};
@@ -37,18 +48,32 @@ export class SignupComponent implements OnInit {
 	}
 
 	initForm() {
-		this.signupForm = new FormGroup({
-			email: new FormControl(null, [Validators.required, Validators.email]),
-			password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
-			passwordConfirm: new FormControl(null, [Validators.required, Validators.minLength(6)])
-		}, [this.checkPasswords.bind(this)]);
+		this.signupForm = new FormGroup(
+			{
+				email: new FormControl(null, [
+					Validators.required,
+					Validators.email,
+				]),
+				password: new FormControl(null, [
+					Validators.required,
+					Validators.minLength(6),
+				]),
+				passwordConfirm: new FormControl(null, [
+					Validators.required,
+					Validators.minLength(6),
+				]),
+			},
+			[this.checkPasswords.bind(this)]
+		);
 	}
 
 	checkPasswords(signupForm: FormGroup) {
 		const pass: string = signupForm.get('password').value;
 		const passConfirm: string = signupForm.get('passwordConfirm').value;
 		if (pass !== passConfirm) {
-			this.signupForm.get('passwordConfirm').setErrors({ NoPassswordMatch: true });
+			this.signupForm
+				.get('passwordConfirm')
+				.setErrors({ NoPassswordMatch: true });
 		}
 	}
 

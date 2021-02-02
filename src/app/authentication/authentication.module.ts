@@ -11,14 +11,19 @@ import { SignupComponent } from './signup/signup.component';
 import { PasswordResetComponent } from '../authentication/password-reset/password-reset.component';
 
 @NgModule({
-	declarations: [AuthComponent, LoginComponent, SignupComponent, PasswordResetComponent],
+	declarations: [
+		AuthComponent,
+		LoginComponent,
+		SignupComponent,
+		PasswordResetComponent,
+	],
 	imports: [
 		CommonModule,
 		AngularMaterialModule,
 		ReactiveFormsModule,
 		AuthRoutingModule,
-		FlexLayoutModule
+		FlexLayoutModule,
 	],
-	entryComponents: [AuthComponent]
+	entryComponents: [AuthComponent],
 })
-export class AuthModule { }
+export class AuthModule {}

@@ -7,9 +7,7 @@ import { NotificationType } from './notification.reducer';
 
 @Injectable()
 export class NotificationService {
-	constructor(
-		private store: Store<fromRoot.State>
-	) { }
+	constructor(private store: Store<fromRoot.State>) {}
 
 	notificationId = 0;
 
@@ -23,9 +21,17 @@ export class NotificationService {
 
 	turnOnNotification(type: NotificationType, message: string) {
 		const id = this.notificationId++;
-		this.store.dispatch(new NotificationActions.AddNotification({ type, message, id }));
+		this.store.dispatch(
+			new NotificationActions.AddNotification({ type, message, id })
+		);
 		setTimeout(() => {
-			this.store.dispatch(new NotificationActions.RemoveNotification({ type, message, id }));
+			this.store.dispatch(
+				new NotificationActions.RemoveNotification({
+					type,
+					message,
+					id,
+				})
+			);
 		}, 4000);
 	}
 }

@@ -1,6 +1,9 @@
 import { createAction, props } from '@ngrx/store';
 
-export const SetAuthenticated = createAction('[Auth] Set Authenticated', props<{ userEmail: string }>());
+export const SetAuthenticated = createAction(
+	'[Auth] Set Authenticated',
+	props<{ userEmail: string }>()
+);
 export const SetUnauthenticated = createAction('[Auth] Set Unauthenticated');
 
 // OLD WAY

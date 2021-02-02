@@ -47,4 +47,4 @@ import { SelectedItemsEffect } from './selected-items.effect';
 	],
 	providers: [MenuResolver],
 })
-export class HomeModule { }
+export class HomeModule {}

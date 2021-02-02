@@ -1,4 +1,10 @@
-import { SET_MENU, ADD_MENU_GROUP, EDIT_MENU_GROUP, DELETE_MENU_GROUP, MenuActions } from './menu.actions';
+import {
+	SET_MENU,
+	ADD_MENU_GROUP,
+	EDIT_MENU_GROUP,
+	DELETE_MENU_GROUP,
+	MenuActions,
+} from './menu.actions';
 import { MenuGroup } from '../model/menu-model';
 
 export interface State {
@@ -6,7 +12,7 @@ export interface State {
 }
 
 const initialState: State = {
-	menuList: []
+	menuList: [],
 };
 
 export function menuReducer(state: State = initialState, action: MenuActions) {
@@ -14,28 +20,28 @@ export function menuReducer(state: State = initialState, action: MenuActions) {
 		case SET_MENU:
 			return {
 				...state,
-				menuList: [...action.payload]
+				menuList: [...action.payload],
 			};
 		case ADD_MENU_GROUP:
 			return {
 				...state,
-				menuList: [...state.menuList, action.payload]
+				menuList: [...state.menuList, action.payload],
 			};
 		case EDIT_MENU_GROUP:
 			return {
 				...state,
-				menuList: [...state.menuList].map(
-					menuGroupElement => {
-						return menuGroupElement.id === action.payload.id ? action.payload : menuGroupElement;
-					}
-				)
+				menuList: [...state.menuList].map((menuGroupElement) => {
+					return menuGroupElement.id === action.payload.id
+						? action.payload
+						: menuGroupElement;
+				}),
 			};
 		case DELETE_MENU_GROUP:
 			return {
 				...state,
 				menuList: [...state.menuList].filter((menuGroupElement) => {
 					return menuGroupElement.id !== action.payload.menuGroupId;
-				})
+				}),
 			};
 		default:
 			return state;

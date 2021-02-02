@@ -20,33 +20,40 @@ export class SelectedItemsEffect {
 		private spinnerService: SpinnerService,
 		private loggingService: LoggingService,
 		private notificationService: NotificationService,
-		private localesService: LocalesService,
-	) { }
+		private localesService: LocalesService
+	) {}
 
 	getlocale = this.localesService.getLocale;
 
-	saveSelectedItem$ = createEffect(() => this.actions$.pipe(
-		ofType(SelectedItemsActions.CLEANUP_ITEMS_START),
-		withLatestFrom(this.store.select('selectedItems')),
-		exhaustMap(([action, appStore]) => {
-			this.spinnerService.showSpinner();
-			return this.selectedItemsService.saveOrder(appStore).then(
-				(responseData) => {
-					this.notificationService.showRegularNotification(
-						this.getlocale('cashLocales', 'submitSuccess')
-					);
-					this.loggingService.info('<<<< Response <<<< ', responseData);
-					return new SelectedItemsActions.CleanItemsSuccess();
-				}
-			).catch((error) => {
-				this.notificationService.showErrorNotification(
-					this.getlocale('cashLocales', 'submitError')
-				);
-				this.loggingService.info('<<<< Response <<<< ', error);
-				return new SelectedItemsActions.CleanItemsError();
-			}).finally(() => {
-				this.spinnerService.hideSpinner();
-			});
-		})
-	));
+	saveSelectedItem$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(SelectedItemsActions.CLEANUP_ITEMS_START),
+			withLatestFrom(this.store.select('selectedItems')),
+			exhaustMap(([action, appStore]) => {
+				this.spinnerService.showSpinner();
+				return this.selectedItemsService
+					.saveOrder(appStore)
+					.then((responseData) => {
+						this.notificationService.showRegularNotification(
+							this.getlocale('cashLocales', 'submitSuccess')
+						);
+						this.loggingService.info(
+							'<<<< Response <<<< ',
+							responseData
+						);
+						return new SelectedItemsActions.CleanItemsSuccess();
+					})
+					.catch((error) => {
+						this.notificationService.showErrorNotification(
+							this.getlocale('cashLocales', 'submitError')
+						);
+						this.loggingService.info('<<<< Response <<<< ', error);
+						return new SelectedItemsActions.CleanItemsError();
+					})
+					.finally(() => {
+						this.spinnerService.hideSpinner();
+					});
+			})
+		)
+	);
 }

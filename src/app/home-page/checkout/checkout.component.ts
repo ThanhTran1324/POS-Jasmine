@@ -1,4 +1,10 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import {
+	Component,
+	OnInit,
+	OnDestroy,
+	ViewChild,
+	ElementRef,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
@@ -10,16 +16,17 @@ import { ModalService } from '../../shared/modal/modal.service';
 @Component({
 	selector: 'app-checkout',
 	templateUrl: './checkout.component.html',
-	styleUrls: ['./checkout.component.scss']
+	styleUrls: ['./checkout.component.scss'],
 })
 export class CheckoutComponent implements OnInit, OnDestroy {
 	constructor(
 		private store: Store<fromRoot.State>,
 		private localesService: LocalesService,
 		private modalService: ModalService
-	) { }
+	) {}
 
-	@ViewChild('cashCheckoutComponent', { static: true }) cashCheckoutComponent: ElementRef;
+	@ViewChild('cashCheckoutComponent', { static: true })
+	cashCheckoutComponent: ElementRef;
 	subTotal: number;
 	tax: number;
 	totalCost: number;
@@ -32,15 +39,17 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 		cashButton: this.getLocale('checkOutLocales', 'cashButton'),
 		discountButton: this.getLocale('checkOutLocales', 'discountButton'),
 		creditCardButton: this.getLocale('checkOutLocales', 'creditCardButton'),
-		settingButton: this.getLocale('checkOutLocales', 'settingButton')
+		settingButton: this.getLocale('checkOutLocales', 'settingButton'),
 	};
 
 	ngOnInit() {
-		this.selectedItemsSub = this.store.select('selectedItems').subscribe((selectedItemsState) => {
-			this.subTotal = selectedItemsState.subTotal;
-			this.tax = selectedItemsState.tax;
-			this.totalCost = selectedItemsState.totalCost;
-		});
+		this.selectedItemsSub = this.store
+			.select('selectedItems')
+			.subscribe((selectedItemsState) => {
+				this.subTotal = selectedItemsState.subTotal;
+				this.tax = selectedItemsState.tax;
+				this.totalCost = selectedItemsState.totalCost;
+			});
 	}
 
 	ngOnDestroy() {
@@ -54,5 +63,4 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 	finishPayment() {
 		this.store.dispatch(new SelectedItemsActions.CleanItemsStart());
 	}
-
 }

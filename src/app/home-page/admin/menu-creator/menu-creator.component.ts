@@ -12,15 +12,14 @@ import { MenuService } from '../../menu.service';
 	selector: 'app-menu-creator',
 	templateUrl: './menu-creator.component.html',
 	styleUrls: ['./menu-creator.component.scss'],
-	encapsulation: ViewEncapsulation.None
+	encapsulation: ViewEncapsulation.None,
 })
-
 export class MenuCreatorComponent implements OnDestroy, OnInit {
 	constructor(
 		private localesService: LocalesService,
 		private dialog: MatDialog,
-		private menuService: MenuService,
-	) { }
+		private menuService: MenuService
+	) {}
 
 	menuList: MenuGroup[];
 	editingGroup: MenuGroup;
@@ -35,10 +34,9 @@ export class MenuCreatorComponent implements OnDestroy, OnInit {
 	};
 
 	ngOnInit() {
-		this.menuSub = this.menuService.getMenu()
-			.subscribe(menuList => {
-				this.menuList = menuList;
-			});
+		this.menuSub = this.menuService.getMenu().subscribe((menuList) => {
+			this.menuList = menuList;
+		});
 	}
 
 	ngOnDestroy() {
@@ -64,10 +62,10 @@ export class MenuCreatorComponent implements OnDestroy, OnInit {
 
 	openModal(formComponent, formData: MenuItem | MenuGroup) {
 		const dialogRef = this.dialog.open(formComponent, {
-			data: formData
+			data: formData,
 		});
 
-		this.dialogSub = dialogRef.afterClosed().subscribe(newFormData => {
+		this.dialogSub = dialogRef.afterClosed().subscribe((newFormData) => {
 			if (newFormData) {
 				this.submitNewMenuGroup(newFormData);
 			}
@@ -88,7 +86,11 @@ export class MenuCreatorComponent implements OnDestroy, OnInit {
 		if (!this.editingGroup) {
 			this.menuService.addNewMenuGroup(newFormData);
 		} else {
-			this.menuService.editMenuGroup(this.editingGroup, this.editingItemIndex, newFormData);
+			this.menuService.editMenuGroup(
+				this.editingGroup,
+				this.editingItemIndex,
+				newFormData
+			);
 		}
 	}
 }

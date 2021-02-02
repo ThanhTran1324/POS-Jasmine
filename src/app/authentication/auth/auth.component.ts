@@ -5,12 +5,10 @@ import { UtilitiesService } from 'src/app/services/utilities.service';
 @Component({
 	selector: 'app-auth',
 	templateUrl: './auth.component.html',
-	styleUrls: ['./auth.component.scss']
+	styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent implements OnInit {
-	constructor(
-		private utilitiesService: UtilitiesService,
-	) { }
+	constructor(private utilitiesService: UtilitiesService) {}
 
 	backgroundUrl: string;
 
@@ -18,8 +16,7 @@ export class AuthComponent implements OnInit {
 		try {
 			const imageUrl = await this.utilitiesService.getImageUrl();
 			this.backgroundUrl = imageUrl;
-		}
-		catch {
+		} catch {
 			this.backgroundUrl = this.utilitiesService.getDefaultImage();
 		}
 	}

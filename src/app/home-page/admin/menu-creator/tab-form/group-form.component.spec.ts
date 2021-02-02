@@ -8,9 +8,8 @@ describe('TabFormComponent', () => {
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			declarations: [GroupFormComponent]
-		})
-			.compileComponents();
+			declarations: [GroupFormComponent],
+		}).compileComponents();
 	}));
 
 	beforeEach(() => {

@@ -6,9 +6,7 @@ import { UnsplashResponseData } from '../model/auth-model';
 
 @Injectable()
 export class UtilitiesService {
-	constructor(
-		private http: HttpClient,
-	) { }
+	constructor(private http: HttpClient) {}
 
 	backgroundImg: string;
 
@@ -23,17 +21,21 @@ export class UtilitiesService {
 				return;
 			}
 
-			this.http.get(environment.backgroundApi)
+			this.http
+				.get(environment.backgroundApi)
 				.toPromise()
-				.then((response: UnsplashResponseData) => {
-					if (response.urls && response.urls.regular) {
-						this.backgroundImg = `url(${response.urls.regular}) 0% 0% / cover`;
-						resolve(this.backgroundImg);
+				.then(
+					(response: UnsplashResponseData) => {
+						if (response.urls && response.urls.regular) {
+							this.backgroundImg = `url(${response.urls.regular}) 0% 0% / cover`;
+							resolve(this.backgroundImg);
+						}
+						reject();
+					},
+					(error) => {
+						reject(error);
 					}
-					reject();
-				}, (error) => {
-					reject(error);
-				});
+				);
 		});
 	}
 }

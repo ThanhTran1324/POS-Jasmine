@@ -8,23 +8,30 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
 	selector: 'app-item-form',
 	templateUrl: './item-form.component.html',
-	styleUrls: ['./item-form.component.scss']
+	styleUrls: ['./item-form.component.scss'],
 })
 export class ItemFormComponent implements OnInit {
 	constructor(
 		private dialogRef: MatDialogRef<ItemFormComponent>,
 		@Inject(MAT_DIALOG_DATA) public data: MenuItem,
-		private localesService: LocalesService) { }
+		private localesService: LocalesService
+	) {}
 
 	itemForm: FormGroup;
 	getLocale = this.localesService.getLocale;
 	locales = {
 		name: this.getLocale('menuCreatorLocales', 'name'),
-		namePlaceholder: this.getLocale('menuCreatorLocales', 'namePlaceholder'),
+		namePlaceholder: this.getLocale(
+			'menuCreatorLocales',
+			'namePlaceholder'
+		),
 		price: this.getLocale('menuCreatorLocales', 'price'),
-		pricePlaceholder: this.getLocale('menuCreatorLocales', 'pricePlaceholder'),
+		pricePlaceholder: this.getLocale(
+			'menuCreatorLocales',
+			'pricePlaceholder'
+		),
 		submitButton: this.getLocale('menuCreatorLocales', 'submitButton'),
-		itemFormHeader: this.getLocale('menuCreatorLocales', 'itemFormHeader')
+		itemFormHeader: this.getLocale('menuCreatorLocales', 'itemFormHeader'),
 	};
 
 	ngOnInit(): void {
@@ -35,7 +42,7 @@ export class ItemFormComponent implements OnInit {
 	formInit() {
 		this.itemForm = new FormGroup({
 			name: new FormControl(null, [Validators.required]),
-			price: new FormControl(null, [Validators.required])
+			price: new FormControl(null, [Validators.required]),
 		});
 	}
 
@@ -43,7 +50,7 @@ export class ItemFormComponent implements OnInit {
 		if (this.data) {
 			this.itemForm.setValue({
 				name: this.data.name,
-				price: this.data.price
+				price: this.data.price,
 			});
 		}
 	}

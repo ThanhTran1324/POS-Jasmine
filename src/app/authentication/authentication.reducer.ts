@@ -8,14 +8,15 @@ export interface State {
 
 const initialState: State = { isAuthenticated: false, userEmail: null };
 
-const authReducerCreator = createReducer(initialState,
+const authReducerCreator = createReducer(
+	initialState,
 	on(AuthActions.SetAuthenticated, (state, { userEmail }) => ({
 		isAuthenticated: true,
-		userEmail
+		userEmail,
 	})),
-	on(AuthActions.SetUnauthenticated, state => ({
+	on(AuthActions.SetUnauthenticated, (state) => ({
 		isAuthenticated: false,
-		userEmail: null
+		userEmail: null,
 	}))
 );
 

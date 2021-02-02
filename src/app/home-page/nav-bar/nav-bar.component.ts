@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 @Component({
 	selector: 'app-nav-bar',
 	templateUrl: './nav-bar.component.html',
-	styleUrls: ['./nav-bar.component.scss']
+	styleUrls: ['./nav-bar.component.scss'],
 })
 export class NavBarComponent implements OnInit, OnDestroy {
 	constructor(
@@ -18,7 +18,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
 		private store: Store<fromRoot.State>,
 		private localesService: LocalesService,
 		private router: Router
-	) { }
+	) {}
 
 	getLocale = this.localesService.getLocale;
 
@@ -33,11 +33,12 @@ export class NavBarComponent implements OnInit, OnDestroy {
 	clockInterval: number;
 
 	ngOnInit() {
-		this.authSub = this.store.select('auth').pipe(
-			take(1)
-		).subscribe((authState) => {
-			this.userEmail = authState.userEmail;
-		});
+		this.authSub = this.store
+			.select('auth')
+			.pipe(take(1))
+			.subscribe((authState) => {
+				this.userEmail = authState.userEmail;
+			});
 		this.getCurrentDate();
 	}
 
