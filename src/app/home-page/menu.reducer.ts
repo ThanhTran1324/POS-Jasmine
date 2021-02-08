@@ -10,16 +10,37 @@ const initialState: State = {
 	menuList: [],
 };
 
-const menuReducer = createReducer(
+const MenuReducer = createReducer(
 	initialState,
 	on(MenuActions.SetMenu, (state, { menuGroup }) => ({
 		...state,
 		menuList: [...menuGroup],
+	})),
+
+	on(MenuActions.AddMenuGroup, (state, { newMenuGroupItem }) => ({
+		...state,
+		menuList: [...state.menuList, newMenuGroupItem],
+	})),
+
+	on(MenuActions.EditMenuGroup, (state, { editedMenuGroupItem }) => ({
+		...state,
+		menuList: [...state.menuList].map((menuGroupElement) => {
+			return menuGroupElement.id === editedMenuGroupItem.id
+				? editedMenuGroupItem
+				: menuGroupElement;
+		}),
+	})),
+
+	on(MenuActions.DeleteMenuGroup, (state, { itemId }) => ({
+		...state,
+		menuList: [...state.menuList].filter((menuGroupElement) => {
+			return menuGroupElement.id !== itemId;
+		}),
 	}))
 );
 
 export function reducer(state: State | undefined, action: Action) {
-	return menuReducer(state, action);
+	return MenuReducer(state, action);
 }
 
 // export function menuReducer(state: State = initialState, action: MenuActions) {

@@ -77,9 +77,11 @@ export class MenuService {
 					this.getLocale('menuServiceLocales', 'menuUpdateSuccess')
 				);
 				this.store.dispatch(
-					new MenuActions.AddMenuGroup({
-						id: responseData.id,
-						...newMenuGroup,
+					MenuActions.AddMenuGroup({
+						newMenuGroupItem: {
+							...newMenuGroup,
+							id: responseData.id,
+						},
 					})
 				);
 			})
@@ -107,7 +109,11 @@ export class MenuService {
 				this.notificationService.showRegularNotification(
 					this.getLocale('menuServiceLocales', 'menuUpdateSuccess')
 				);
-				this.store.dispatch(new MenuActions.EditMenuGroup(editedGroup));
+				this.store.dispatch(
+					MenuActions.EditMenuGroup({
+						editedMenuGroupItem: editedGroup,
+					})
+				);
 			})
 			.catch((error) => {
 				this.notificationService.showErrorNotification(
@@ -163,7 +169,7 @@ export class MenuService {
 					this.getLocale('menuServiceLocales', 'deleteSuccess')
 				);
 				this.store.dispatch(
-					new MenuActions.DeleteMenuGroup({ menuGroupId })
+					MenuActions.DeleteMenuGroup({ itemId: menuGroupId })
 				);
 			})
 			.catch((error) => {

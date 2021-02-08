@@ -23,7 +23,7 @@ export const reducers: ActionReducerMap<State> = {
 	auth: fromAuth.authReducer,
 	notification: fromNotification.notificationReducer,
 	menu: fromMenu.reducer,
-	selectedItems: fromSelectedItems.SelectedItemsReducer,
+	selectedItems: fromSelectedItems.reducer,
 };
 
 export const getSpinnerState = createFeatureSelector<fromSpinner.State>(

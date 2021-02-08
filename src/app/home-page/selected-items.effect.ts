@@ -27,7 +27,7 @@ export class SelectedItemsEffect {
 
 	saveSelectedItem$ = createEffect(() =>
 		this.actions$.pipe(
-			ofType(SelectedItemsActions.CLEANUP_ITEMS_START),
+			ofType(SelectedItemsActions.CleanItemsStart),
 			withLatestFrom(this.store.select('selectedItems')),
 			exhaustMap(([action, appStore]) => {
 				this.spinnerService.showSpinner();
@@ -41,14 +41,14 @@ export class SelectedItemsEffect {
 							'<<<< Response <<<< ',
 							responseData
 						);
-						return new SelectedItemsActions.CleanItemsSuccess();
+						return SelectedItemsActions.CleanItemsSuccess();
 					})
 					.catch((error) => {
 						this.notificationService.showErrorNotification(
 							this.getlocale('cashLocales', 'submitError')
 						);
 						this.loggingService.info('<<<< Response <<<< ', error);
-						return new SelectedItemsActions.CleanItemsError();
+						return SelectedItemsActions.CleanItemsError();
 					})
 					.finally(() => {
 						this.spinnerService.hideSpinner();

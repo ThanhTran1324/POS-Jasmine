@@ -61,6 +61,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 	}
 
 	finishPayment() {
-		this.store.dispatch(new SelectedItemsActions.CleanItemsStart());
+		this.store.dispatch(SelectedItemsActions.CleanItemsStart());
 	}
 }

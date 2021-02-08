@@ -41,6 +41,6 @@ export class MenuItemListComponent implements OnInit, OnDestroy {
 	}
 
 	addItemToCart(item: MenuItem) {
-		this.store.dispatch(new SelectedItemsActions.AddItem(item));
+		this.store.dispatch(SelectedItemsActions.AddItem({ newItem: item }));
 	}
 }

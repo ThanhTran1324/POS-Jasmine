@@ -42,10 +42,12 @@ export class CartComponent implements OnInit, OnDestroy {
 	}
 
 	increaseItemQty(item: MenuItem) {
-		this.store.dispatch(new SelectedItemsActions.AddItem(item));
+		this.store.dispatch(SelectedItemsActions.AddItem({ newItem: item }));
 	}
 
 	decreaseItemQty(index: number) {
-		this.store.dispatch(new SelectedItemsActions.RemoveItem({ index }));
+		this.store.dispatch(
+			SelectedItemsActions.RemoveItem({ itemIndex: index })
+		);
 	}
 }
