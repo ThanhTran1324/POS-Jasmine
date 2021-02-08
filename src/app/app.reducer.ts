@@ -22,7 +22,7 @@ export const reducers: ActionReducerMap<State> = {
 	spinner: fromSpinner.spinnerReducer,
 	auth: fromAuth.authReducer,
 	notification: fromNotification.notificationReducer,
-	menu: fromMenu.menuReducer,
+	menu: fromMenu.reducer,
 	selectedItems: fromSelectedItems.SelectedItemsReducer,
 };
 

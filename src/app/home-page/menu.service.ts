@@ -45,8 +45,10 @@ export class MenuService {
 				})
 			)
 			.subscribe(
-				(menu: MenuGroup[]) => {
-					this.store.dispatch(new MenuActions.SetMenu(menu));
+				(menuResponsed: MenuGroup[]) => {
+					this.store.dispatch(
+						MenuActions.SetMenu({ menuGroup: menuResponsed })
+					);
 				},
 				(error) => {
 					this.loggingService.info('<<<< Response <<<< ', error);

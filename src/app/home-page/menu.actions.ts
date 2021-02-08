@@ -1,15 +1,20 @@
-import { Action } from '@ngrx/store';
+import { Action, createAction, props } from '@ngrx/store';
 import { MenuGroup } from '../model/menu-model';
 
-export const SET_MENU = '[Menu] Set Menu';
+// export const SET_MENU = '[Menu] Set Menu';
 export const ADD_MENU_GROUP = '[Menu] Add Menu Group';
 export const EDIT_MENU_GROUP = '[Menu] Edit Menu Group';
 export const DELETE_MENU_GROUP = '[Menu] Delete Menu Group';
 
-export class SetMenu implements Action {
-	readonly type = SET_MENU;
-	constructor(public payload: MenuGroup[]) {}
-}
+export const SetMenu = createAction(
+	'[Menu] Set Menu',
+	props<{ menuGroup: MenuGroup[] }>()
+);
+
+// export class SetMenu implements Action {
+// 	readonly type = SET_MENU;
+// 	constructor(public payload: MenuGroup[]) {}
+// }
 
 export class AddMenuGroup implements Action {
 	readonly type = ADD_MENU_GROUP;
@@ -27,7 +32,5 @@ export class DeleteMenuGroup implements Action {
 }
 
 export type MenuActions =
-	| SetMenu
-	| AddMenuGroup
-	| EditMenuGroup
-	| DeleteMenuGroup;
+	// | SetMenu
+	AddMenuGroup | EditMenuGroup | DeleteMenuGroup;
