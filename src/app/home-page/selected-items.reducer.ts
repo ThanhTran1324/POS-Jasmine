@@ -20,49 +20,91 @@ const salesTaxRate = 7 / 100;
 const SelectedItemsReducer = createReducer(
 	initialState,
 	on(selectedItemsActions.AddItem, (state, { newItem }) => {
-		let isFound = false;
-		const newSelectedItems = [
+		let isFound2 = false;
+		const newSelectedItems2 = [
 			...state.selectedItems.map((menuItem) => {
-				if (menuItem.name === newItem.name) {
-					isFound = true;
+				if (menuItem.name == newItem.name) {
+					isFound2 = true;
 					return { ...menuItem, qty: menuItem.qty + 1 };
 				}
 				return menuItem;
 			}),
 		];
-		if (!isFound) {
-			newSelectedItems.push({ ...newItem, qty: 1 });
+
+		if (!isFound2) {
+			newSelectedItems2.push({ ...newItem, qty: 1 });
 		}
 
 		return {
-			...state,
-			selectedItems: newSelectedItems,
+			selectedItems: newSelectedItems2,
 			subTotal: state.subTotal + newItem.price,
-			tax: state.tax + salesTaxRate * newItem.price,
+			tax: state.tax + newItem.price * salesTaxRate,
 			totalCost:
-				state.totalCost + newItem.price + salesTaxRate * newItem.price,
+				state.totalCost + newItem.price + newItem.price * salesTaxRate,
 		};
+
+		// let isFound = false;
+		// const newSelectedItems = [
+		// 	...state.selectedItems.map((menuItem) => {
+		// 		if (menuItem.name === newItem.name) {
+		// 			isFound = true;
+		// 			return { ...menuItem, qty: menuItem.qty + 1 };
+		// 		}
+		// 		return menuItem;
+		// 	}),
+		// ];
+		// if (!isFound) {
+		// 	newSelectedItems.push({ ...newItem, qty: 1 });
+		// }
+
+		// return {
+		// 	...state,
+		// 	selectedItems: newSelectedItems,
+		// 	subTotal: state.subTotal + newItem.price,
+		// 	tax: state.tax + salesTaxRate * newItem.price,
+		// 	totalCost:
+		// 		state.totalCost + newItem.price + salesTaxRate * newItem.price,
+		// };
 	}),
 
 	on(selectedItemsActions.RemoveItem, (state, { itemIndex }) => {
 		const newItemList = [...state.selectedItems];
-		const item = state.selectedItems[itemIndex];
-		if (item.qty === 1) {
+		const itemToRemove = newItemList[itemIndex];
+		if (itemToRemove.qty == 1) {
 			newItemList.splice(itemIndex, 1);
 		} else {
 			newItemList[itemIndex] = {
-				...item,
-				qty: item.qty - 1,
+				...itemToRemove,
+				qty: itemToRemove.qty - 1,
 			};
 		}
 
 		return {
-			...state,
 			selectedItems: newItemList,
-			subTotal: state.subTotal - item.price,
-			tax: state.tax - salesTaxRate * item.price,
-			totalCost: state.totalCost - item.price - salesTaxRate * item.price,
+			subTotal: state.subTotal - itemToRemove.price,
+			tax: state.tax - itemToRemove.price * salesTaxRate,
+			totalCost:
+				state.totalCost - itemToRemove.price * (1 + salesTaxRate),
 		};
+
+		// const newItemList = [...state.selectedItems];
+		// const item = state.selectedItems[itemIndex];
+		// if (item.qty === 1) {
+		// 	newItemList.splice(itemIndex, 1);
+		// } else {
+		// 	newItemList[itemIndex] = {
+		// 		...item,
+		// 		qty: item.qty - 1,
+		// 	};
+		// }
+
+		// return {
+		// 	...state,
+		// 	selectedItems: newItemList,
+		// 	subTotal: state.subTotal - item.price,
+		// 	tax: state.tax - salesTaxRate * item.price,
+		// 	totalCost: state.totalCost - item.price - salesTaxRate * item.price,
+		// };
 	}),
 
 	on(selectedItemsActions.CleanItemsSuccess, (state) => initialState)
