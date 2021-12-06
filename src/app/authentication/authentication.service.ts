@@ -31,8 +31,7 @@ export class AuthService {
 		this.afAuth
 			.signInWithEmailAndPassword(authData.email, authData.password)
 			.then((result: ResponseUserData) => {
-				// This logging should be changed - however, leaving it here for current development work
-				this.loggingService.info('<<<< Response <<<< ', result);
+				this.loggingService.info('<<<<<< Response', result);
 				this.store.dispatch(
 					AuthActions.SetAuthenticated({
 						userEmail: result.user.email,
@@ -44,7 +43,7 @@ export class AuthService {
 				);
 			})
 			.catch((error) => {
-				this.loggingService.info('<<<< Response <<<< ', error);
+				this.loggingService.info('<<<< Response <<<<<', error);
 				this.notificationService.showErrorNotification(
 					this.getLocale('authentication', 'loginError')
 				);
@@ -52,6 +51,32 @@ export class AuthService {
 			.finally(() => {
 				this.spinnerService.hideSpinner();
 			});
+
+		// this.spinnerService.showSpinner();
+		// this.afAuth
+		// 	.signInWithEmailAndPassword(authData.email, authData.password)
+		// 	.then((result: ResponseUserData) => {
+		// 		// This logging should be changed - however, leaving it here for current development work
+		// 		this.loggingService.info('<<<< Response <<<< ', result);
+		// 		this.store.dispatch(
+		// 			AuthActions.SetAuthenticated({
+		// 				userEmail: result.user.email,
+		// 			})
+		// 		);
+		// 		this.router.navigate(['/home']);
+		// 		this.notificationService.showRegularNotification(
+		// 			this.getLocale('authentication', 'loginSuccess')
+		// 		);
+		// 	})
+		// 	.catch((error) => {
+		// 		this.loggingService.info('<<<< Response <<<< ', error);
+		// 		this.notificationService.showErrorNotification(
+		// 			this.getLocale('authentication', 'loginError')
+		// 		);
+		// 	})
+		// 	.finally(() => {
+		// 		this.spinnerService.hideSpinner();
+		// 	});
 	}
 
 	registerUser(authData: AuthData) {

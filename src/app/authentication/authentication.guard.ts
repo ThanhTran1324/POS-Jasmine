@@ -31,12 +31,29 @@ export class AuthGuard implements CanActivate, CanLoad {
 				return isAuth;
 			})
 		);
+
+		// return this.store.select(fromRoot.getIsAuth).pipe(
+		// 	take(1),
+		// 	map((isAuth) => {
+		// 		if (!isAuth) {
+		// 			return this.router.createUrlTree(['/login']);
+		// 		}
+		// 		return isAuth;
+		// 	})
+		// );
 	}
 
 	canLoad(route: Route): boolean | UrlTree | Observable<boolean | UrlTree> {
 		return this.store.select(fromRoot.getIsAuth).pipe(
 			take(1),
-			map((isAuth) => isAuth)
+			map((isAuth) => {
+				return isAuth;
+			})
 		);
+
+		// return this.store.select(fromRoot.getIsAuth).pipe(
+		// 	take(1),
+		// 	map((isAuth) => isAuth)
+		// );
 	}
 }

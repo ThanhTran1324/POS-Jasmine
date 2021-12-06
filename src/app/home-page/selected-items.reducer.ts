@@ -36,6 +36,7 @@ const SelectedItemsReducer = createReducer(
 		}
 
 		return {
+			...state,
 			selectedItems: newSelectedItems2,
 			subTotal: state.subTotal + newItem.price,
 			tax: state.tax + newItem.price * salesTaxRate,
@@ -80,6 +81,7 @@ const SelectedItemsReducer = createReducer(
 		}
 
 		return {
+			...state,
 			selectedItems: newItemList,
 			subTotal: state.subTotal - itemToRemove.price,
 			tax: state.tax - itemToRemove.price * salesTaxRate,
