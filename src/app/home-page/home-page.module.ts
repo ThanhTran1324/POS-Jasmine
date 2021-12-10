@@ -5,6 +5,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 
+import { SelectedItemsEffect } from './selected-items.effect';
+
 import { HomePageComponent } from './home-page.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -19,7 +21,8 @@ import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { SharedModule } from '../shared/shared.module';
 import { CashComponent } from './checkout/cash/cash.component';
-import { SelectedItemsEffect } from './selected-items.effect';
+import { DiscountComponent } from './checkout/discount/discount.component';
+
 
 @NgModule({
 	imports: [
@@ -44,6 +47,7 @@ import { SelectedItemsEffect } from './selected-items.effect';
 		CartComponent,
 		CheckoutComponent,
 		CashComponent,
+		DiscountComponent,
 	],
 	providers: [MenuResolver],
 })

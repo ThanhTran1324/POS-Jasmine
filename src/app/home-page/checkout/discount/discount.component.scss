@@ -1,0 +1,12 @@
+.discount-component {
+	padding: 30px;
+	width: 300px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	.select_dropdown {
+		width: 90%;
+	}
+}

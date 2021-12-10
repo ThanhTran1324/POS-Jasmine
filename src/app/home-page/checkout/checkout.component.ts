@@ -27,9 +27,12 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
 	@ViewChild('cashCheckoutComponent', { static: true })
 	cashCheckoutComponent: ElementRef;
+	@ViewChild('discountCheckoutComponent', { static: true })
+	discountCheckoutComponent: ElementRef;
 	subTotal: number;
 	tax: number;
 	totalCost: number;
+	activatedDiscount: number;
 	selectedItemsSub: Subscription;
 	getLocale = this.localesService.getLocale;
 	locales = {
@@ -49,6 +52,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 				this.subTotal = selectedItemsState.subTotal;
 				this.tax = selectedItemsState.tax;
 				this.totalCost = selectedItemsState.totalCost;
+				this.activatedDiscount = selectedItemsState.activatedDiscount;
 			});
 	}
 
@@ -58,6 +62,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
 	cashCheckout() {
 		this.modalService.openModal(this.cashCheckoutComponent);
+	}
+
+	openModalDiscount() {
+		this.modalService.openModal(this.discountCheckoutComponent);
 	}
 
 	finishPayment() {

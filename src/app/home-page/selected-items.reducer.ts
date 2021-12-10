@@ -7,15 +7,20 @@ export interface State {
 	subTotal: number;
 	tax: number;
 	totalCost: number;
+	activatedDiscount: number;
+	discountOptionList: number[];
 }
 
+const salesTaxRate = 7 / 100;
+const discountOptionList = [0, 0.01, 0.02, 0.03, 0.05, 0.1, 0.2, 0.3, 0.5];
 const initialState: State = {
 	selectedItems: [],
 	subTotal: 0,
 	tax: 0,
 	totalCost: 0,
+	activatedDiscount: 0,
+	discountOptionList,
 };
-const salesTaxRate = 7 / 100;
 
 const SelectedItemsReducer = createReducer(
 	initialState,
@@ -23,7 +28,7 @@ const SelectedItemsReducer = createReducer(
 		let isFound2 = false;
 		const newSelectedItems2 = [
 			...state.selectedItems.map((menuItem) => {
-				if (menuItem.name == newItem.name) {
+				if (menuItem.name === newItem.name) {
 					isFound2 = true;
 					return { ...menuItem, qty: menuItem.qty + 1 };
 				}
@@ -38,10 +43,15 @@ const SelectedItemsReducer = createReducer(
 		return {
 			...state,
 			selectedItems: newSelectedItems2,
-			subTotal: state.subTotal + newItem.price,
-			tax: state.tax + newItem.price * salesTaxRate,
+			subTotal:
+				(1 - state.activatedDiscount) * newItem.price + state.subTotal,
+			tax:
+				(1 - state.activatedDiscount) * newItem.price * salesTaxRate +
+				state.tax,
 			totalCost:
-				state.totalCost + newItem.price + newItem.price * salesTaxRate,
+				(1 - state.activatedDiscount) *
+					(newItem.price + newItem.price * salesTaxRate) +
+				state.totalCost,
 		};
 
 		// let isFound = false;
@@ -83,10 +93,17 @@ const SelectedItemsReducer = createReducer(
 		return {
 			...state,
 			selectedItems: newItemList,
-			subTotal: state.subTotal - itemToRemove.price,
-			tax: state.tax - itemToRemove.price * salesTaxRate,
+			subTotal:
+				state.subTotal -
+				(1 - state.activatedDiscount) * itemToRemove.price,
+			tax:
+				state.tax -
+				(1 - state.activatedDiscount) *
+					(itemToRemove.price * salesTaxRate),
 			totalCost:
-				state.totalCost - itemToRemove.price * (1 + salesTaxRate),
+				state.totalCost -
+				(1 - state.activatedDiscount) *
+					(itemToRemove.price * (1 + salesTaxRate)),
 		};
 
 		// const newItemList = [...state.selectedItems];
@@ -109,7 +126,32 @@ const SelectedItemsReducer = createReducer(
 		// };
 	}),
 
-	on(selectedItemsActions.CleanItemsSuccess, (state) => initialState)
+	on(selectedItemsActions.CleanItemsSuccess, (state) => initialState),
+
+	on(selectedItemsActions.setDiscount, (state, { selectedDiscount }) => {
+		const previousDiscount = state.activatedDiscount;
+		if (previousDiscount === 0) {
+			return {
+				...state,
+				activatedDiscount: selectedDiscount,
+				subTotal: (1 - selectedDiscount) * state.subTotal,
+				tax: (1 - selectedDiscount) * state.tax,
+				totalCost: (1 - selectedDiscount) * state.totalCost,
+			};
+		}
+
+		return {
+			...state,
+			activatedDiscount: selectedDiscount,
+			subTotal:
+				(state.subTotal / (1 - previousDiscount)) *
+				(1 - selectedDiscount),
+			tax: (state.tax / (1 - previousDiscount)) * (1 - selectedDiscount),
+			totalCost:
+				(state.totalCost / (1 - previousDiscount)) *
+				(1 - selectedDiscount),
+		};
+	})
 );
 
 export function reducer(state: State | undefined, action: Action) {

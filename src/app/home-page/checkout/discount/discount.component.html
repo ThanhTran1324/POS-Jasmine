@@ -1,0 +1,23 @@
+<div class="discount-component">
+	<h4>Select Discount %</h4>
+	<mat-form-field
+		appearance="fill"
+		class="select_dropdown"
+		id="selectedDiscountValue"
+	>
+		<mat-label>Select*</mat-label>
+		<mat-select [formControl]="selectedDiscountValue">
+			<mat-option
+				*ngFor="let discount of discountOptionList | async"
+				[value]="discount"
+			>
+				{{ discount | percent }}
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<mat-card-actions align="center">
+		<button mat-raised-button color="primary" (click)="onSubmitDiscount()">
+			Submit
+		</button>
+	</mat-card-actions>
+</div>
