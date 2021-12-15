@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 import { ModalService } from 'src/app/shared/modal/modal.service';
 
 import * as fromRoot from '../../../app.reducer';
@@ -13,9 +12,10 @@ import * as selectedItemsAction from '../../selected-items.actions';
 	templateUrl: './discount.component.html',
 	styleUrls: ['./discount.component.scss'],
 })
-export class DiscountComponent implements OnInit {
-	selectedDiscountValue = new FormControl('');
-	discountOptionList: Observable<number[]>;
+export class DiscountComponent implements OnInit, OnDestroy {
+	discountOptionList: number[];
+	selectedDiscountForm = new FormControl();
+	selectedItemsStateSub: Subscription;
 
 	constructor(
 		private store: Store<fromRoot.State>,
@@ -23,17 +23,26 @@ export class DiscountComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.discountOptionList = this.store.select('selectedItems').pipe(
-			map((state) => {
-				return state.discountOptionList;
-			})
-		);
+		this.getSelectedItemsState();
+	}
+
+	ngOnDestroy(): void {
+		this.selectedItemsStateSub.unsubscribe();
+	}
+
+	getSelectedItemsState() {
+		this.selectedItemsStateSub = this.store
+			.select('selectedItems')
+			.subscribe((state) => {
+				this.discountOptionList = state.discountOptionList;
+				this.selectedDiscountForm.setValue(state.activatedDiscount);
+			});
 	}
 
 	onSubmitDiscount() {
 		this.store.dispatch(
 			selectedItemsAction.setDiscount({
-				selectedDiscount: this.selectedDiscountValue.value,
+				selectedDiscount: this.selectedDiscountForm.value,
 			})
 		);
 		this.modalService.closeModal();

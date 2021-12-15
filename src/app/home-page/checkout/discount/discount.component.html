@@ -6,9 +6,9 @@
 		id="selectedDiscountValue"
 	>
 		<mat-label>Select*</mat-label>
-		<mat-select [formControl]="selectedDiscountValue">
+		<mat-select [formControl]="selectedDiscountForm">
 			<mat-option
-				*ngFor="let discount of discountOptionList | async"
+				*ngFor="let discount of discountOptionList"
 				[value]="discount"
 			>
 				{{ discount | percent }}
