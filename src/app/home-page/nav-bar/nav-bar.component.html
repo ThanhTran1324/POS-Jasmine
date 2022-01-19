@@ -2,6 +2,7 @@
 	<p (click)="goHome()">{{ locales.hello }}{{ userEmail }}</p>
 	<p>{{ time | date: 'medium' }}</p>
 	<div fxLayoutGap='10px'>
+		<a routerLink="/home/note" mat-raised-button>Note</a>
 		<a (click)="routeAway()" mat-raised-button>{{locales.routeAway}}</a>
 		<button mat-button mat-raised-button (click)="onLogout()">{{locales.logoutButton}}</button>
 	</div>

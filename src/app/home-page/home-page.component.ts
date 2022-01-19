@@ -1,4 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
+import { ActivatedRoute, Routes } from '@angular/router';
 import { AuthService } from '../authentication/authentication.service';
 
 @Component({
@@ -7,12 +8,16 @@ import { AuthService } from '../authentication/authentication.service';
 	styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-	constructor(private authService: AuthService) {}
+	constructor(
+		private authService: AuthService,
+		private routes: ActivatedRoute
+	) {}
 
 	idleTime: number;
 
 	ngOnInit(): void {
 		this.resetTimer();
+		console.log(this.routes);
 	}
 
 	/**

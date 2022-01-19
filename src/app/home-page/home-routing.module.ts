@@ -19,8 +19,13 @@ export const routes: Routes = [
 			{ path: '', pathMatch: 'full', component: UserMenuComponent },
 			{ path: 'group/:id', component: MenuItemListComponent },
 			{ path: 'admin', component: AdminComponent }, // need to add auth admin guard.
+			{
+				path: 'note',
+				loadChildren: () => import('./note/note.module').then((m) => m.NoteModule)
+			},
 		],
 	},
+
 ];
 
 @NgModule({
