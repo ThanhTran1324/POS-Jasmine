@@ -4,12 +4,12 @@ import { withLatestFrom, exhaustMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import * as SelectedItemsActions from './selected-items.actions';
-import * as fromRoot from '../app.reducer';
+import * as fromRoot from '../../app.reducer';
 import { SelectedItemsService } from './selected-items.service';
-import { SpinnerService } from '../shared/spinner/spinner.service';
-import { LoggingService } from '../services/logging.service';
-import { NotificationService } from '../shared/notification/notification.service';
-import { LocalesService } from '../services/locales.service';
+import { SpinnerService } from '../../shared/spinner/spinner.service';
+import { LoggingService } from '../../services/logging.service';
+import { NotificationService } from '../../shared/notification/notification.service';
+import { LocalesService } from '../../services/locales.service';
 
 @Injectable()
 export class SelectedItemsEffect {

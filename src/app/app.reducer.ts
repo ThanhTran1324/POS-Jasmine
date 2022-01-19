@@ -7,8 +7,8 @@ import {
 import * as fromSpinner from './shared/spinner/spinner.reducer';
 import * as fromNotification from './shared/notification/notification.reducer';
 import * as fromAuth from './authentication/authentication.reducer';
-import * as fromMenu from './home-page/menu.reducer';
-import * as fromSelectedItems from './home-page/selected-items.reducer';
+import * as fromMenu from './home-page/pos/menu.reducer';
+import * as fromSelectedItems from './home-page/pos/selected-items.reducer';
 
 export interface State {
 	spinner: fromSpinner.State;

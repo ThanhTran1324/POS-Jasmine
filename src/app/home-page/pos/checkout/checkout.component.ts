@@ -8,10 +8,10 @@ import {
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
-import * as fromRoot from '../../app.reducer';
+import * as fromRoot from '../../../app.reducer';
 import * as SelectedItemsActions from '../selected-items.actions';
-import { LocalesService } from '../../services/locales.service';
-import { ModalService } from '../../shared/modal/modal.service';
+import { LocalesService } from '../../../services/locales.service';
+import { ModalService } from '../../../shared/modal/modal.service';
 
 @Component({
 	selector: 'app-checkout',

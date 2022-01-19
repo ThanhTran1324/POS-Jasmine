@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { ModalService } from 'src/app/shared/modal/modal.service';
 
-import * as fromRoot from '../../../app.reducer';
+import * as fromRoot from '../../../../app.reducer';
 import * as selectedItemsAction from '../../selected-items.actions';
 
 @Component({

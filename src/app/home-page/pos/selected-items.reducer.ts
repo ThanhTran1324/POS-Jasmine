@@ -1,5 +1,5 @@
 import { createReducer, Action, on } from '@ngrx/store';
-import { SelectedItem } from '../model/menu-model';
+import { SelectedItem } from '../../model/menu-model';
 import * as selectedItemsActions from './selected-items.actions';
 
 export interface State {

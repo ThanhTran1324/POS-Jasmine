@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { MenuItem, SelectedItem } from '../model/menu-model';
+import { MenuItem, SelectedItem } from '../../model/menu-model';
 
 export const AddItem = createAction(
 	'[Selected Items] Add Item',

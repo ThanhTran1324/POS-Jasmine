@@ -37,7 +37,7 @@ export class AuthService {
 						userEmail: result.user.email,
 					})
 				);
-				this.router.navigate(['/home']);
+				this.router.navigate(['/home/pos']);
 				this.notificationService.showRegularNotification(
 					this.getLocale('authentication', 'loginSuccess')
 				);

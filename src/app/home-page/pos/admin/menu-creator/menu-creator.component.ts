@@ -2,8 +2,8 @@ import { Component, ViewEncapsulation, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 
-import { LocalesService } from '../../../services/locales.service';
-import { MenuGroup, MenuItem } from '../../../model/menu-model';
+import { LocalesService } from '../../../../services/locales.service';
+import { MenuGroup, MenuItem } from '../../../../model/menu-model';
 import { GroupFormComponent } from './tab-form/group-form.component';
 import { ItemFormComponent } from './item-form/item-form.component';
 import { MenuService } from '../../menu.service';

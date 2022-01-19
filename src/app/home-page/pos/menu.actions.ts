@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { MenuGroup } from '../model/menu-model';
+import { MenuGroup } from '../../model/menu-model';
 
 // export const SET_MENU = '[Menu] Set Menu';
 // export const ADD_MENU_GROUP = '[Menu] Add Menu Group';

@@ -1,6 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import * as MenuActions from './menu.actions';
-import { MenuGroup } from '../model/menu-model';
+import { MenuGroup } from '../../model/menu-model';
 
 export interface State {
 	menuList: MenuGroup[];

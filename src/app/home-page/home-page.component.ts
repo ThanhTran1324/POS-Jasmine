@@ -17,7 +17,6 @@ export class HomePageComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.resetTimer();
-		console.log(this.routes);
 	}
 
 	/**

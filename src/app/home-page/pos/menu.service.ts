@@ -3,13 +3,13 @@ import { Store } from '@ngrx/store';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map, take, finalize } from 'rxjs/operators';
 
-import * as fromRoot from '../app.reducer';
+import * as fromRoot from '../../app.reducer';
 import * as MenuActions from './menu.actions';
-import { MenuGroup, FbMenuResponseData, MenuItem } from '../model/menu-model';
-import { LoggingService } from '../services/logging.service';
-import { SpinnerService } from '../shared/spinner/spinner.service';
-import { NotificationService } from '../shared/notification/notification.service';
-import { LocalesService } from '../services/locales.service';
+import { MenuGroup, FbMenuResponseData, MenuItem } from '../../model/menu-model';
+import { LoggingService } from '../../services/logging.service';
+import { SpinnerService } from '../../shared/spinner/spinner.service';
+import { NotificationService } from '../../shared/notification/notification.service';
+import { LocalesService } from '../../services/locales.service';
 
 @Injectable()
 export class MenuService {

@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { LocalesService } from '../../../../services/locales.service';
-import { MenuGroup } from '../../../../model/menu-model';
+import { LocalesService } from '../../../../../services/locales.service';
+import { MenuGroup } from '../../../../../model/menu-model';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({

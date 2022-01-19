@@ -8,9 +8,9 @@ import { CommonModule } from '@angular/common';
 import { SpinnerService } from './spinner/spinner.service';
 import { AuthService } from '../authentication/authentication.service';
 import { NotificationService } from './notification/notification.service';
-import { MenuService } from '../home-page/menu.service';
+import { MenuService } from '../home-page/pos/menu.service';
 import { ModalService } from './modal/modal.service';
-import { SelectedItemsService } from '../home-page/selected-items.service';
+import { SelectedItemsService } from '../home-page/pos/selected-items.service';
 
 import { MobileViewComponent } from './mobile-view/mobile-view.component';
 import { NotificationComponent } from './notification/notification.component';

@@ -58,16 +58,16 @@ export class NavBarComponent implements OnInit, OnDestroy {
 	}
 
 	routeAway() {
-		if (this.router.url === '/home/admin') {
+		if (this.router.url === '/home/pos/admin') {
 			this.goHome();
 			return;
 		}
 		this.locales.routeAway = this.getLocale('navBarLocales', 'homeButton');
-		this.router.navigate(['/home/admin']);
+		this.router.navigate(['/home/pos/admin']);
 	}
 
 	goHome() {
 		this.locales.routeAway = this.getLocale('navBarLocales', 'adminButton');
-		this.router.navigate(['/home']);
+		this.router.navigate(['/home/pos/']);
 	}
 }

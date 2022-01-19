@@ -2,10 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
-import * as fromRoot from '../../app.reducer';
+import * as fromRoot from '../../../app.reducer';
 import * as SelectedItemsActions from '../selected-items.actions';
-import { SelectedItem, MenuItem } from '../../model/menu-model';
-import { LocalesService } from '../../services/locales.service';
+import { SelectedItem, MenuItem } from '../../../model/menu-model';
+import { LocalesService } from '../../../services/locales.service';
 
 @Component({
 	selector: 'app-cart',

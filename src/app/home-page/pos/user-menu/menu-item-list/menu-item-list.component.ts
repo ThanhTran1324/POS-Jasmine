@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { MenuGroup, MenuItem } from 'src/app/model/menu-model';
 import { Subscription } from 'rxjs';
 import { MenuService } from '../../menu.service';
-import * as fromRoot from '../../../app.reducer';
+import * as fromRoot from '../../../../app.reducer';
 import * as SelectedItemsActions from '../../selected-items.actions';
 
 @Component({
