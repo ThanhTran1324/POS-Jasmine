@@ -9,11 +9,13 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { NotePageComponent } from './note-page.component';
 import { NoteRoutingModule } from './note-routing.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { NoteListItemRenderComponent } from './note-list-item-render/note-list-item-render.component';
 
 
 @NgModule({
   declarations: [
 	NotePageComponent,
+	NoteListItemRenderComponent,
   ],
   imports: [
     CommonModule,
