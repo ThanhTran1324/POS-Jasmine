@@ -1,3 +1,15 @@
-<div class="note-container" fxLayout="100%">
-	Note
+<div class="note-container" fxLayout="row">
+	<div fxFlex="20">
+		<mat-list role="list">
+			<mat-list-item role="listitem" *ngFor="let noteList of NoteListData" (click)="setSelectedNoteList(noteList.noteItemList)">{{noteList.name}}</mat-list-item>
+		</mat-list>
+	</div>
+	<div fxFlex="20">
+		<mat-list role="list" *ngIf="selectedList">
+			<mat-list-item role="listitem" *ngFor="let noteItem of selectedList" (click)="setSelectedNoteItem(noteItem)">{{noteItem.name}}</mat-list-item>
+		</mat-list>
+	</div>
+	<div fxFlex="60">
+		<p type="text" *ngIf="selectedNoteItem" >{{selectedNoteItem.content}}</p>
+	</div>
 </div>

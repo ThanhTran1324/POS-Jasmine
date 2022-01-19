@@ -1,5 +1,9 @@
 .note-container {
 	height: 100%;
 	overflow: hidden;
-	background-color: rgb(226, 224, 224);
+	background-color: rgb(223, 222, 166);
+
+	& > div:not(:first-child) {
+		border-left: 2px solid goldenrod;
+	}
 }
