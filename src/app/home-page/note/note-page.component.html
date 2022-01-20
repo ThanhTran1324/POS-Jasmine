@@ -1,7 +1,7 @@
 <div class="note-container" fxLayout="row">
 	<div fxFlex="20">
 		<app-note-list-item-render
-			[inputValue]="NoteListData"
+			[inputValue]="noteListData"
 			[isNoteList]="true"
 			(selectItem)="setSelectedNoteList($event)"
 		></app-note-list-item-render>
@@ -15,10 +15,6 @@
 		></app-note-list-item-render>
 	</div>
 	<div fxFlex="60">
-		<textarea type="text" class="note-input-field" *ngIf="selectedNoteItem">{{selectedNoteItem.content}}></textarea>
-		<!-- <mat-form-field class="example-full-width" appearance="fill">
-			<mat-label>Leave a comment</mat-label>
-			<textarea matInput placeholder="Make you note here..." *ngIf="selectedNoteItem" class="note-input-field"></textarea>
-		  </mat-form-field> -->
+		<textarea fxFlex="100" type="text" class="note-input-field" *ngIf="selectedNoteItem">{{selectedNoteItem.content}}></textarea>
 	</div>
 </div>
