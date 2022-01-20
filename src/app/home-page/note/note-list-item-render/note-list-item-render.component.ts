@@ -1,5 +1,5 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { NoteItem, NoteList } from 'src/app/model/note-model';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { NoteItemOrListToRender } from 'src/app/model/note-model';
 
 @Component({
   selector: 'app-note-list-item-render',
@@ -7,16 +7,25 @@ import { NoteItem, NoteList } from 'src/app/model/note-model';
   styleUrls: ['./note-list-item-render.component.scss']
 })
 export class NoteListItemRenderComponent implements OnInit, OnChanges {
-	@Input() inputValue: NoteList[] | NoteItem[];
+
+	@Input() inputValue: NoteItemOrListToRender[];
 	@Input() isNoteList: boolean;
-	dataToRender: NoteItem[] | NoteItem[];
-  constructor() { }
+	@Output() selectItem = new EventEmitter<NoteItemOrListToRender>();
+	dataToRender: NoteItemOrListToRender[];
 
-  ngOnInit(): void {
-  }
+	constructor() { }
 
- ngOnChanges(changes: SimpleChanges): void {
-	this.dataToRender = this.inputValue;
- }
+	ngOnInit(): void {}
 
+	ngOnChanges(): void {
+		if(this.isNoteList){
+			this.dataToRender = this.inputValue;
+		} else {
+			this.dataToRender = this.inputValue['noteItemList'];
+		}
+	}
+
+	onSelectItem(item: NoteItemOrListToRender){
+		this.selectItem.emit(item);
+	}
 }

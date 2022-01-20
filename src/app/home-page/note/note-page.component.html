@@ -1,13 +1,24 @@
 <div class="note-container" fxLayout="row">
 	<div fxFlex="20">
-		
+		<app-note-list-item-render
+			[inputValue]="NoteListData"
+			[isNoteList]="true"
+			(selectItem)="setSelectedNoteList($event)"
+		></app-note-list-item-render>
 	</div>
 	<div fxFlex="20">
-		<mat-list role="list" *ngIf="selectedList">
-			<mat-list-item role="listitem" *ngFor="let noteItem of selectedList" (click)="setSelectedNoteItem(noteItem)">{{noteItem.name}}</mat-list-item>
-		</mat-list>
+		<app-note-list-item-render
+			*ngIf="selectedList"
+			[inputValue]="selectedList"
+			[isNoteList]="false"
+			(selectItem)="setSelectedNoteItem($event)"
+		></app-note-list-item-render>
 	</div>
 	<div fxFlex="60">
-		<p type="text" *ngIf="selectedNoteItem">{{selectedNoteItem.content}}</p>
+		<textarea type="text" class="note-input-field" *ngIf="selectedNoteItem">{{selectedNoteItem.content}}></textarea>
+		<!-- <mat-form-field class="example-full-width" appearance="fill">
+			<mat-label>Leave a comment</mat-label>
+			<textarea matInput placeholder="Make you note here..." *ngIf="selectedNoteItem" class="note-input-field"></textarea>
+		  </mat-form-field> -->
 	</div>
 </div>

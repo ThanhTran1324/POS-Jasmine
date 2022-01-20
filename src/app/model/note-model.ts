@@ -9,3 +9,10 @@ export interface NoteList {
 	name: string,
 	noteItemList: NoteItem[],
 }
+
+export interface NoteItemOrListToRender {
+	id: string,
+	name: string,
+	content?: string,
+	noteItemList?: NoteItem[]
+}

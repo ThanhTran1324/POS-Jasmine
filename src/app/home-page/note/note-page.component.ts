@@ -40,6 +40,22 @@ export class NotePageComponent implements OnInit {
 					content: 'ngay xua ngay xua 4'
 				}
 			]
+		},
+		{
+			id: '3',
+			name: 'note list 3',
+			noteItemList: [
+				{
+					id: 'note 5',
+					name: 'note 5',
+					content: 'ngay xua ngay xua 5'
+				},
+				{
+					id: 'note 6',
+					name: 'note 6',
+					content: 'ngay xua ngay xua 6'
+				}
+			]
 		}
 	]
 	selectedList: NoteItem[];
@@ -54,10 +70,10 @@ export class NotePageComponent implements OnInit {
 		console.log(noteList);
 		this.selectedList = noteList;
 		this.selectedNoteItem = null;
-  }
+	}
 
 	setSelectedNoteItem(noteItem: NoteItem){
 		console.log(noteItem);
 		this.selectedNoteItem = noteItem;
-  }
+	}
 }
