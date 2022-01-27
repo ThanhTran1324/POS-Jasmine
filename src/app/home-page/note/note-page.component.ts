@@ -1,69 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { NoteList, NoteItem } from '../../model/note-model';
+
+import { NoteService} from './note.service';
 @Component({
   selector: 'app-note-page',
   templateUrl: './note-page.component.html',
   styleUrls: ['./note-page.component.scss']
 })
-export class NotePageComponent implements OnInit {
+export class NotePageComponent implements OnInit, OnDestroy {
 
-	NoteListData: NoteList[] = [
-		{
-			id: '1',
-			name: 'note list 1',
-			noteItemList: [
-				{
-					id: 'note 1',
-					name: 'note 1',
-					content: 'ngay xua ngay xua'
-				},
-				{
-					id: 'note 2',
-					name: 'note 2',
-					content: 'ngay xua ngay xua 2'
-				}
-			]
-		},
-		{
-			id: '2',
-			name: 'note list 2',
-			noteItemList: [
-				{
-					id: 'note 3',
-					name: 'note 3',
-					content: 'ngay xua ngay xua 3'
-				},
-				{
-					id: 'note 4',
-					name: 'note 4',
-					content: 'ngay xua ngay xua 4'
-				}
-			]
-		},
-		{
-			id: '3',
-			name: 'note list 3',
-			noteItemList: [
-				{
-					id: 'note 5',
-					name: 'note 5',
-					content: 'ngay xua ngay xua 5'
-				},
-				{
-					id: 'note 6',
-					name: 'note 6',
-					content: 'ngay xua ngay xua 6'
-				}
-			]
-		}
-	]
+	noteListData: NoteList[];
+	noteStateSub: Subscription;
 	selectedList: NoteItem[];
 	selectedNoteItem: NoteItem;
 
-	constructor() { }
+	constructor(
+		private noteService: NoteService
+	) { }
 
 	ngOnInit(): void {
+		this.noteStateSub = this.noteService.getNoteList().subscribe((noteState: NoteList[])=>{
+			this.noteListData = noteState;
+		})
+	}
+
+	ngOnDestroy(): void {
+		this.noteStateSub.unsubscribe();
 	}
 
 	setSelectedNoteList(noteList: NoteItem[]){
