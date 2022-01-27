@@ -4,20 +4,34 @@ import * as fromRoot from '../../app.reducer';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { trigger, state, style, animate, transition,} from '@angular/animations';
 
 import { LocalesService } from 'src/app/services/locales.service';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 @Component({
 	selector: 'app-nav-bar',
 	templateUrl: './nav-bar.component.html',
 	styleUrls: ['./nav-bar.component.scss'],
+	animations: [
+		trigger('openClose',[
+			state('void', style({
+				fontSize: '200px',
+				opacity: 0.1,
+				color: 'gray'
+			})),
+			transition(':enter, :leave', [animate(1000)]
+			),
+		])
+	]
 })
 export class NavBarComponent implements OnInit, OnDestroy {
 	constructor(
 		private authService: AuthService,
 		private store: Store<fromRoot.State>,
 		private localesService: LocalesService,
-		private router: Router
+		private router: Router,
+		private http: HttpClient
 	) {}
 
 	getLocale = this.localesService.getLocale;
@@ -69,5 +83,13 @@ export class NavBarComponent implements OnInit, OnDestroy {
 	goHome() {
 		this.locales.routeAway = this.getLocale('navBarLocales', 'adminButton');
 		this.router.navigate(['/home/pos/']);
+	}
+
+	test(){
+		this.http.get('https://api.covidtracking.com/v1/us/daily.jsons').subscribe(response => {
+			console.log(response);
+		},error =>{
+			console.log(error)
+		});
 	}
 }

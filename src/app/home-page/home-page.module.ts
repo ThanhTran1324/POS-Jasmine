@@ -9,6 +9,8 @@ import { HomeRoutingModule } from './home-routing.module';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 import { SharedModule } from '../shared/shared.module';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
 	imports: [
@@ -18,6 +20,8 @@ import { SharedModule } from '../shared/shared.module';
 		HomeRoutingModule,
 		ReactiveFormsModule,
 		SharedModule,
+		HttpClientModule,
+		// BrowserAnimationsModule
 	],
 	exports: [],
 	declarations: [

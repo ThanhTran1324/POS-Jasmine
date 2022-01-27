@@ -1,7 +1,8 @@
-<mat-toolbar color="primary" fxFlex='row' fxLayoutAlign='space-between center'>
+<mat-toolbar color="primary" fxFlex='row' fxLayoutAlign='space-between center' [@openClose]="'in'">
 	<p (click)="goHome()">{{ locales.hello }}{{ userEmail }}</p>
 	<p>{{ time | date: 'medium' }}</p>
 	<div fxLayoutGap='10px'>
+		<a (click)="test()">Test</a>
 		<a routerLink="/home/note" mat-raised-button>Note</a>
 		<a (click)="routeAway()" mat-raised-button>{{locales.routeAway}}</a>
 		<button mat-button mat-raised-button (click)="onLogout()">{{locales.logoutButton}}</button>
